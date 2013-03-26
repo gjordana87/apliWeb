@@ -5,8 +5,8 @@ from django.db import models
 
 class Escola(models.Model):
 	equip = models.CharField(max_length=200)
-	junta = models.CharField(max_length=200)
-	
+	president = models.CharField(max_length=200)
+	imatge = models.ImageField(upload_to='escola', verbose_name='Imatge')
 	def __unicode__ (self):
 		return self.equip
 	
@@ -26,9 +26,9 @@ class Reglament(models.Model):
 		return self.base
 
 class Calendari(models.Model):
-	#data = 
+	data = models.DateTimeField(auto_now=True)
 	partit = models.CharField(max_length=200)
-	#hora =
+	hora = models.DateTimeField(auto_now=True)
 
 	def __unicode__(self):
 		return self.partit
