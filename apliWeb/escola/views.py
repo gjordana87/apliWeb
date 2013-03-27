@@ -10,6 +10,11 @@ def mainpage(request):
 	'titlehead': 'Escola aPP',
 	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
 	'contentbody': 'Manager per a la gestio de l`Escola',
+	'optionmenu1': 'Escola',
+	'optionmenu2': 'Reglament',
+	'optionmenu3': 'Junta',
+	'optionmenu4': 'Calendari',
+	'optionmenu5': 'Classificacio',
 	})
 	
     output = template.render(variables)

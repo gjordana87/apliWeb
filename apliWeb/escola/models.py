@@ -7,6 +7,7 @@ class Escola(models.Model):
 	numjug = models.IntegerField('Num de Jugadors', help_text='Nombre de Jugadors')
 	entrenador = models.CharField('Entrenador', max_length=200, help_text='Com es diu l`entrenador')
 	imatge = models.ImageField(upload_to='escola', verbose_name='Imatge')
+
 	def __unicode__ (self):
 		return self.equip
 	
@@ -23,12 +24,12 @@ class Reglament(models.Model):
 	bases = models.TextField(max_length=2000)
 	
 	def __unicode__(self):
-		return self.base
+		return self.bases
 
 class Calendari(models.Model):
 	data = models.DateTimeField()
 	partit = models.CharField(max_length=200)
-	hora = models.DateTimeField()
+	
 
 	def __unicode__(self):
 		return self.partit
@@ -41,5 +42,8 @@ class Junta(models.Model):
      	def __unicode__(self):
  		return self.president
 
-#class Classificacio(models.Models):
+class Classificacio(models.Model):
+	possicio = models.IntegerField('Possicio', help_text='Possicio en la classificacio')
 	
+	def __unicode__(self):
+		return self.possicio
