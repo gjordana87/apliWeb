@@ -1,17 +1,17 @@
-# -*- coding: utf-8 -*-
+#encoding:utf-8
 from django.db import models
-
-
+from django.contrib.auth.models import User
 
 class Escola(models.Model):
-	equip = models.CharField(max_length=200)
-	president = models.CharField(max_length=200)
+	equip = models.CharField('Equip', max_length=200, help_text='Introdueix el nom de Equip')
+	numjug = models.IntegerField('Num de Jugadors', help_text='Nombre de Jugadors')
+	entrenador = models.CharField('Entrenador', max_length=200, help_text='Com es diu l`entrenador')
 	imatge = models.ImageField(upload_to='escola', verbose_name='Imatge')
 	def __unicode__ (self):
 		return self.equip
 	
 
-class Instalacio(models.Model):
+class Instalacions(models.Model):
 	vestidor = models.TextField(max_length=200)
 	camp = models.TextField(max_length=200)
 	
@@ -26,12 +26,20 @@ class Reglament(models.Model):
 		return self.base
 
 class Calendari(models.Model):
-	data = models.DateTimeField(auto_now=True)
+	data = models.DateTimeField()
 	partit = models.CharField(max_length=200)
-	hora = models.DateTimeField(auto_now=True)
+	hora = models.DateTimeField()
 
 	def __unicode__(self):
 		return self.partit
+
+class Junta(models.Model):
+        president = models.CharField('President', max_length=200, help_text='Nom del actual President')
+	vicepresident = models.CharField('Vicepresident', max_length=200, help_text='Nom del Viceprecident')
+	coordinador = models.CharField('Coordinador', max_length=200, help_text='Nom del Coordinador')
+	     
+     	def __unicode__(self):
+ 		return self.president
 
 #class Classificacio(models.Models):
 	
