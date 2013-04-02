@@ -15,6 +15,7 @@ class Escola(models.Model):
 class Instalacions(models.Model):
 	vestidor = models.TextField(max_length=200)
 	camp = models.TextField(max_length=200)
+	escola = models.ForeignKey(Escola)
 	
 	def __unicode__(self):
 		return self.vestidor
