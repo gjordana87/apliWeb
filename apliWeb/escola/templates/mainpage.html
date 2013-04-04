@@ -1,30 +1,21 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-  <head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />	
-  <title>{{ titlehead}}</title>
-  <link rel="stylesheet" type="text/css" href="../static/css/estil.css" media="screen" />
-  <script>
-	function alerta(){
-	alert("Hola, estas en l'entorn Web de l'escola");}
-  </script>
-  </head>
+{% extends "base.html" %}
 
-<body >
+{% block content %}
 
 <div id="layer-0">
-<h1>{{ pagetitle }}</h1></div>
+<h1>{{ pagetitle }}</h1>
+</div>
+
+<div id="layer-1">
 <ul id="layer-1">
-<li><a href="#">{{ optionmenu1 }}</a></li>
-<li><a href="#">{{ optionmenu6 }}</a></li>
-<li><a href="#">{{ optionmenu2 }}</a></li>
-<li><a href="#">{{ optionmenu3 }}</a></li>
-<li><a href="#">{{ optionmenu4 }}</a></li>
-<li><a href="#">{{ optionmenu5 }}</a></li>
-
+<li><a href="/escola">{{ optionmenu1 }}</a></li>
+<li><a href="">{{ optionmenu2 }}</a></li>
+<li><a href="">{{ optionmenu3 }}</a></li>
+<li><a href="">{{ optionmenu4 }}</a></li>
 </ul></br>
-<input type="button" onclick="alerta()" value="Benvinguda" />
-
+</div>
+<!--<input type="button" onclick="alerta()" value="Benvinguda" />-->
+<div id ="layer-2">
 <p>{{ contentbody }}</p>
-</body>
-</html>
+</div>
+{% endblock %}
