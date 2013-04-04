@@ -1,22 +1,75 @@
-#menu {
-padding: 0;
+#body {
+background:url("paper.gif");
+background-size:80px 60px;
+background-repeat:no-repeat;
+padding-top:40px;
 }
 
-#menu li {
+#layer-1 {
+padding: 500;
+}
+
+#layer-1 li {
 display: inline;
 }
 
-#menu li a {
+#layer-1 li a {
 font-family: Arial;
-font-size:11px;
+font-size:12px;
 text-decoration: none;
 float:left;
 padding: 10px;
 background-color: #2175bc;
 color: #fff;
 }
-#menu li a:hover {
+#layer-1 li a:hover {
 background-color: #2586d7;
-margin-top:-2px;
+margin-top:-10px;
 padding-bottom:12px;
 }
+
+#layer-0 {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background-image: -moz-linear-gradient(top,  rgba(88, 50, 241, 1) 0%, rgba(221, 221, 221, 1) 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(88, 50, 241, 1)), color-stop(100%,rgba(221, 221, 221, 1)));
+  background-image: -webkit-linear-gradient(top,  rgba(88, 50, 241, 1) 0%,rgba(221, 221, 221, 1) 100%);
+  background-image: -o-linear-gradient(top,  rgba(88, 50, 241, 1) 0%,rgba(221, 221, 221, 1) 100%);
+  background-image: -ms-linear-gradient(top,  rgba(88, 50, 241, 1) 0%,rgba(221, 221, 221, 1) 100%);
+  background-image: linear-gradient(to bottom,  rgba(88, 50, 241, 1) 0%,rgba(221, 221, 221, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5832F1', endColorstr='#5832F1',GradientType=0 );
+  width: 3000px;
+  height: 83px;
+  opacity: 1;
+}
+
+#layer-1 {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background-color: #22AEDD;
+  background-repeat: no-repeat;
+  width: 3000px;
+  height: 50px;
+  opacity: 1;
+  border-radius: 14px;
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  -ms-border-radius: 14px;
+  -o-border-radius: 14px;
+  box-shadow: 0px 0px 0px 0px #4E51E9,0px 0px 0px 0px #8E81DA inset;
+  -webkit-box-shadow: 0px 0px 0px 0px #4E51E9,0px 0px 0px 0px #8E81DA inset;
+  -moz-box-shadow: 0px 0px 0px 0px #4E51E9,0px 0px 0px 0px #8E81DA inset;
+  -ms-box-shadow: 0px 0px 0px 0px #4E51E9,0px 0px 0px 0px #8E81DA inset;
+  -o-box-shadow: 0px 0px 0px 0px #4E51E9,0px 0px 0px 0px #8E81DA inset;
+}
+
+#layer-2 {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background-color: #5832F1;
+  width: 3000px;
+  height: 600px;
+  opacity: 1;
+}
+
+
