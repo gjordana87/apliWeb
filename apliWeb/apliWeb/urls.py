@@ -21,8 +21,9 @@ urlpatterns = patterns('',
     url(r'^escola/$',escola),
 
     #reglament
-    #url(r'^reglament/$','reglament.views.reglament')
-    
+    url(r'^reglament/$',reglament),
+    url(r'^equip/$',equip),
+    url(r'^instalacions/$',instalacions),
 
 
 )
