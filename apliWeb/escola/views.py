@@ -25,7 +25,7 @@ def mainpage(request):
 
 
 def escola(request):
-	
+	escola = Escole.objects.all()
 	variables = {
 	'titlehead': 'Escola aPP',
 	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
@@ -34,10 +34,10 @@ def escola(request):
 	'optionmenu2': 'Reglament',
 	'optionmenu3': 'Equip',
 	'optionmenu4': 'Instalacions',
-
+	'escola': escola
 	}
 
-	escola = Escole.objects.all()
+	
 	#html = "<html><body>Prova de projecte</body></html>",
 	#output = template.render(variables)
 	return render_to_response('escola.html',variables)
@@ -63,6 +63,7 @@ def reglament(request):
 	return render_to_response('reglament.html',variables)
 
 def equip(request):
+	equip = Equip.objects.all()
 	variables = Context({
 	'titlehead': 'Escola aPP',
 	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
@@ -71,9 +72,10 @@ def equip(request):
 	'optionmenu2': 'Reglament',
 	'optionmenu3': 'Equip',
 	'optionmenu4': 'Instalacions',
+	'equip' : equip
 	})
 
-	equip = Equip.objects.all()
+
 	return render_to_response('equip.html',variables)
 
 def instalacions(request):
