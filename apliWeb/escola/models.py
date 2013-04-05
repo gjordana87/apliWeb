@@ -7,8 +7,10 @@ class Escole(models.Model):
 	nom = models.CharField('Nom', max_length=20, help_text='Nom Escola')
 	direccio = models.CharField('Direccio', max_length=40, help_text='Direccio de Escola')
 	telf = models.IntegerField('Telefon', max_length=9, help_text='Telefon Escola')
+	president = models.CharField('President', max_length=200, help_text='Nom del actual President')
+	vicepresident = models.CharField('Vicepresident', max_length=200, help_text='Nom del actual Vicepresident')
+	coordinador = models.CharField('Coordinador', max_length=200, help_text='Nom del actual Coordinador')
 	
-
 	def __unicode__(self):
 		return self.nom
 
@@ -17,6 +19,8 @@ class Equip(models.Model):
 	numjug = models.IntegerField('Num de Jugadors', help_text='Nombre de Jugadors')
 	entrenador = models.CharField('Entrenador', max_length=200, help_text='Com es diu l`entrenador')
 	imatge = models.ImageField(upload_to='escola', verbose_name='Imatge')
+	possicio = models.IntegerField('Possicio', help_text='Possicio en la classificacio')
+	punts = models.IntegerField('Punts Classificacio', max_length=2)
 	fkEscole = models.ManyToManyField(Escole)
 
 	def __unicode__ (self):
@@ -33,8 +37,10 @@ class Instalacion(models.Model):
 	
 
 class Reglament(models.Model):
-	normes = models.TextField(max_length=2000)
-	fkEscole = models.OneToOneField(Escole)
+	numnorma = models.IntegerField('Norma', max_length=2)
+	normes = models.CharField('Nom Norma', max_length=20)
+	descrip = models.TextField('Descripcio', max_length=2000, help_text='Descripcio')
+	fkEscole = models.ForeignKey(Escole)
 	
 	def __unicode__(self):
 		return self.normes
@@ -42,26 +48,9 @@ class Reglament(models.Model):
 class Calendari(models.Model):
 	jornada = models.IntegerField('Numero Jornada', max_length=2, help_text='Numero de jornada')
 	data = models.DateTimeField(default= datetime.now(), blank=True)
-	#horaconv = models.DateTimeField(default= datetime.now(), blank=True)
-	#horapartit = models.DateTimeField(default= datetime.now(), blank=True)
 	fkEquip = models.ForeignKey(Equip)
 
 	def __unicode__(self):
 		return self.jornada
 
-class Junte(models.Model):
-	president = models.CharField('President', max_length=200, help_text='Nom del actual President')
-	vicepresident = models.CharField('Vicepresident', max_length=200, help_text='Nom del actual Vicepresident')
-	coordinador = models.CharField('Coordinador', max_length=200, help_text='Nom del actual Coordinador')
-	fkEscole = models.OneToOneField(Escole)
 
-	def __unicode__(self):
- 		return self.president
-
-class Classificacion(models.Model):
-	possicio = models.IntegerField('Possicio', help_text='Possicio en la classificacio')
-	punts = models.IntegerField('Punts Classificacio', max_length=2)
-	fkEquip = models.OneToOneField(Equip)
-
-	def __unicode__(self):
-		return self.possicio
