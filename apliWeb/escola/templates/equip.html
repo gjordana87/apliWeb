@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-<h2>Llista de Equips </h2>
-<p>{{equip}}</p>
+	<center>
+		<h2>Llista de Equips </h2>
+		{% for dada in equips %}
+		
+		 <p>hola{{ dada.equip }}</p> 
+		
+		{% endfor %}
+	</center>
 
 {% endblock %}

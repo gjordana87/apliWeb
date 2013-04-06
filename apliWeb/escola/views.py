@@ -24,6 +24,22 @@ def mainpage(request):
 	return HttpResponse(output)
 
 
+#def base(request):
+
+#	variables = Context({
+#	'titlehead': 'Escola aPP',
+#	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
+#	'contentbody': 'Manager per a la gestio de l`Escola',
+#	'optionmenu1': 'Escola',
+#	'optionmenu2': 'Reglament',
+#	'optionmenu3': 'Equip',
+#	'optionmenu4': 'Instalacions',
+
+#	})
+
+#	return render_to_response('base.html',variables)
+
+
 def escola(request):
 	escola = Escole.objects.all()
 	variables = {
@@ -38,15 +54,13 @@ def escola(request):
 	}
 
 	
-	#html = "<html><body>Prova de projecte</body></html>",
-	#output = template.render(variables)
+	
 	return render_to_response('escola.html',variables)
 
-	#output = template.render(variables)
-	#return HttpResponse(request)
+	
 
 def reglament(request):
-
+	reglament = Reglament.objects.all()
 	variables = Context({
 	'titlehead': 'Escola aPP',
 	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
@@ -55,10 +69,9 @@ def reglament(request):
 	'optionmenu2': 'Reglament',
 	'optionmenu3': 'Equip',
 	'optionmenu4': 'Instalacions',
-
+	'reglament': reglament
 	})
 
-	reglament = Reglament.objects.all()
 
 	return render_to_response('reglament.html',variables)
 
@@ -75,10 +88,10 @@ def equip(request):
 	'equip' : equip
 	})
 
-
 	return render_to_response('equip.html',variables)
 
 def instalacions(request):
+	instalacions = Instalacion.objects.all()
 	variables = Context({
 	'titlehead': 'Escola aPP',
 	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
@@ -87,8 +100,38 @@ def instalacions(request):
 	'optionmenu2': 'Reglament',
 	'optionmenu3': 'Equip',
 	'optionmenu4': 'Instalacions',
+	'instalacions': instalacions
 	})
 
-	instalacions = Instalacion.objects.all()
 	return render_to_response('instalacions.html',variables)
+
+def detallescoles(request):
+	detallescoles = detallescoles.objects.all()
+	variables = Context({
+	'titlehead': 'Escola aPP',
+	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
+	'contentbody': 'Manager per a la gestio de l`Escola',
+	'optionmenu1': 'Escola',
+	'optionmenu2': 'Reglament',
+	'optionmenu3': 'Equip',
+	'optionmenu4': 'Instalacions',
+	'detallescoles': detallescoles,
+	})
+
+	return render_to_response('detallescoles.html',variables)
+
+def detallequips(request):
+	detallequips = detallequips.objects.all()
+	variables = Context({
+	'titlehead': 'Escola aPP',
+	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
+	'contentbody': 'Manager per a la gestio de l`Escola',
+	'optionmenu1': 'Escola',
+	'optionmenu2': 'Reglament',
+	'optionmenu3': 'Equip',
+	'optionmenu4': 'Instalacions',
+	'detallequips': detallequips,
+	})
+
+	return render_to_response('detallequips.html',variables)
 

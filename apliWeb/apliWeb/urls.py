@@ -15,15 +15,21 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', mainpage, name='home'),
-    
+    #url(r'^base$', base, name='base'),
 
     #escola
     url(r'^escola/$',escola),
-
     #reglament
     url(r'^reglament/$',reglament),
+    #equips
     url(r'^equip/$',equip),
+    #instalacions
     url(r'^instalacions/$',instalacions),
+    #detallequips
+    url(r'^detallequips/$',detallequips),
+    #detallescoles
+    url(r'^detallescoles/$',detallescoles),
+
 
 
 )

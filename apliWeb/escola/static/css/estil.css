@@ -65,6 +65,12 @@ padding-bottom:12px;
   width: 3000px;
   height: 400px;
   opacity: 1;
+  position:absolute;
+  top: 65%;
+  left: 20%;
+  height:400px;
+  width:800px;
+  margin-top:-200px;
 }
 
 
