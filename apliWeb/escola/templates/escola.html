@@ -3,11 +3,13 @@
 {% block contenido %}
 
 
+
 	<center>
 		<h2>Llista de Escoles de  Futbol </h2>
-		<p>{{escola}}<a href="/detallescoles"> veure detall escola </a></p>
-		<p>{{escola}}<a href="/detallescoles"> veure detall escola </a></p>
+		{% for x in escoles %}
+		<p>{{ x.nom }}</br><a href="/detallescoles"> veure detall escola </a></p>
 
+		{% endfor %}
 
 	</br></br>		<a href="/base"> Tornar a menu </a>
 

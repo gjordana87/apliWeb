@@ -15,6 +15,8 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', mainpage, name='home'),
+    url(r'^login/$','django.contrib.auth.views.login'),
+
     #url(r'^base$', base, name='base'),
 
     #escola
@@ -23,6 +25,9 @@ urlpatterns = patterns('',
     url(r'^reglament/$',reglament),
     #equips
     url(r'^equip/$',equip),
+    #url(r'^equip/$','equip.views.equip'),
+    #url(r'^equip/(?P<equip_categoria>\W+)$',equip),
+
     #instalacions
     url(r'^instalacions/$',instalacions),
     #detallequips

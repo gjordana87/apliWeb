@@ -3,9 +3,9 @@
 {% block contenido %}
 	<center>
 		<h2>Llista de Equips </h2>
-		{% for dada in equips %}
+		{% for x in equips %}
 		
-		 <p>hola{{ dada.equip }}</p> 
+		 <li>{{ x.categoria}}</li>
 		
 		{% endfor %}
 	</center>

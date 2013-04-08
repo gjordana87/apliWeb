@@ -14,8 +14,22 @@
 
 <body >
 
+
 <div id="layer-0">
 <h1>{{ pagetitle }}</h1>
+
+{% if user.username %}
+<p>Benvingut {{ user.username }}!
+Aquí podrà gestionar les escoles de futbol</p>
+{% else %}
+<p>Benvingut Usuari:
+Obligatori fer <a href="/login/">sign in</a>
+per gestionar escoles</p>
+{% endif %}
+
+
+
+
 </div>
 <div id="layer-1">
 	{%block encabezado %}{% endblock %}

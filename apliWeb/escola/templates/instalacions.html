@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block contenido %}
+<center>
 <h3>Llista de instal·lacions </h3>
-<p>{{Escola.nom}}</p>
-
+		{% for x in instalacions %}
+		<li>{{ x.nom }}</li>
+	
+	{% endfor %}
+</center>
 {% endblock %}

@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-<h3>Reglament intern </h3>
 
+	<center>
+		<h3>Reglament intern </h3>
+		{% for a in reglament %}
+			<li>{{a.normes }}</li>
+		{% endfor %}
+
+	<center>
 {% endblock %}
