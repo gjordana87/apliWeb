@@ -20,7 +20,7 @@ urlpatterns = patterns('',
     #url(r'^base$', base, name='base'),
 
     #escola
-    url(r'^escola/$',escola),
+    url(r'^escola/$',escola),    
     #reglament
     url(r'^reglament/$',reglament),
     #equips
@@ -31,7 +31,7 @@ urlpatterns = patterns('',
     #instalacions
     url(r'^instalacions/$',instalacions),
     #detallequips
-    url(r'^detallequips/$',detallequips),
+    url(r'^models/(? P <detalls> \ w +) / $', detallescoles, nom = 'Detalls del model'),
     #detallescoles
     url(r'^detallescoles/$',detallescoles),
 

@@ -47,9 +47,6 @@ def escola(request):
 	'optionmenu4': 'Instalacions',
 	'escoles': escola
 	}
-
-	
-	
 	return render_to_response('escola.html',variables)
 
 	
@@ -73,7 +70,7 @@ def reglament(request):
 def equip(request):
 	
 	equip = Equip.objects.all()
-	variables = Context({
+	variables = {
 	'titlehead': 'Equips',
 	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
 	'contentbody': 'Manager per a la gestio de l`Escola',
@@ -82,12 +79,12 @@ def equip(request):
 	'optionmenu3': 'Equip',
 	'optionmenu4': 'Instalacions',
 	'equips' : equip
-	})
+	}
 	return render_to_response('equip.html',variables)
 
 def instalacions(request):
 	instalacions = Instalacion.objects.all()
-	variables = Context({
+	variables = {
 	'titlehead': 'Instalacions',
 	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
 	'contentbody': 'Manager per a la gestio de l`Escola',
@@ -95,41 +92,23 @@ def instalacions(request):
 	'optionmenu2': 'Reglament',
 	'optionmenu3': 'Equip',
 	'optionmenu4': 'Instalacions',
-	'instalacions': instalacions
-	})
+    'instalacions': instalacions
+    }
+        return render_to_response('instalacions.html', variables)
 
-	return render_to_response('instalacions.html',variables)
-
-#def detallescoles(request):
-#	detallescoles = detallescoles.objects.all()
-#	variables = Context({
-#	'titlehead': 'Escola aPP',
-#	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
-#	'contentbody': 'Manager per a la gestio de l`Escola',
-#	'optionmenu1': 'Escola',
-#	'optionmenu2': 'Reglament',
-#	'optionmenu3': 'Equip',
-#	'optionmenu4': 'Instalacions',
-#	'detallescoles': detallescoles,
-#	})
-
-#	return render_to_response('detallescoles.html',variables	)
-
-def detallescoles(request):
-	try:
-		escola = Escole.objects.get(name=detallescoles)
-		variables = ({
-		'titlehead':"Detall de escoles",
-		'nom': escola.nom,
-		'direccio': escola.direccio,
-		'telf': escola.telf,
-		'president': escola.president,
-		'vicepresident': escola.vicepresident,
-		'coordinador': escola.coordinador,
-		})
-	except Escole.DoesNotExist:
-		raise Http404
-		return render_to_response(detallescoles.html, variables)
+def detallescoles(request, detalls):
+    escola = Escole.objects.get(nom=detalls)
+    specs = escola.specification.all()
+    variables = {
+	'titlehead':"Detall de escoles",
+	'nom': escola.nom,
+	'direccio': escola.direccio,
+	'telf': escola.telf,
+	'president': escola.president,
+	'vicepresident': escola.vicepresident,
+	'coordinador': escola.coordinador
+	}
+    return render_to_response('detallescoles.html', variables)
 
 def detallequips(request):
 	detallequips = detallequips.objects.all()
