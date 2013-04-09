@@ -3,15 +3,15 @@
 {% block contenido %}
 
 <center>
-<h3>Detalls escola </h3>
-		
-		<li>{{nom}}</li>
-		<!--><li>{{direccio}}</li>
-		<li>{{telf}}</li>
-		<li>{{president}}</li>
-		<li>{{visepresident}}</li>
-		<li>{{coordinador}}</li>
-		-->
+<h3>Detalls escola {{nom}}</h3>
+		<table>
+		<tr><td>Nom escola :</td><td>{{nom}}</td></tr>
+		<tr><td>Direccio :</td><td>{{direccio}}</td></tr>
+		<tr><td>Telefon :</td><td>{{telf}}</td></tr>
+		<tr><td>Pressident :</td><td>{{president}}</td></td>
+		<tr><td>Vicepressident :</td><td>{{vicepresident}}</td></tr>
+		<tr><td>Coordinador :</td><td>{{coordinador}}</td></tr>
+		</table>
 </center>
  
 {% endblock %}

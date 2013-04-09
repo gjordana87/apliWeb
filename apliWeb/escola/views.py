@@ -79,6 +79,7 @@ def equip(request):
 	'optionmenu3': 'Equip',
 	'optionmenu4': 'Instalacions',
 	'equips' : equip
+
 	}
 	return render_to_response('equip.html',variables)
 
@@ -96,9 +97,8 @@ def instalacions(request):
     }
         return render_to_response('instalacions.html', variables)
 
-def detallescoles(request, detalls):
-    escola = Escole.objects.get(nom=detalls)
-    specs = escola.specification.all()
+def detallescoles(request):
+    escola = Escole.objects.get()
     variables = {
 	'titlehead':"Detall de escoles",
 	'nom': escola.nom,
@@ -106,14 +106,27 @@ def detallescoles(request, detalls):
 	'telf': escola.telf,
 	'president': escola.president,
 	'vicepresident': escola.vicepresident,
-	'coordinador': escola.coordinador
+	'coordinador': escola.coordinador,
+	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
+	'contentbody': 'Manager per a la gestio de l`Escola',
+	'optionmenu1': 'Escola',
+	'optionmenu2': 'Reglament',
+	'optionmenu3': 'Equip',
+	'optionmenu4': 'Instalacions',
 	}
     return render_to_response('detallescoles.html', variables)
 
 def detallequips(request):
-	detallequips = detallequips.objects.all()
-	variables = Context({
-	'titlehead': 'Escola aPP',
+	equip = Equip.objects.get()
+	#equip = Equip.objects.all()
+	variables = {
+	'titlehead': 'Detall equip ',
+	'categoria': equip.categoria,
+	'numjug': equip.numjug,
+	'entrenador': equip.entrenador,
+	'imatge': equip.imatge,
+	'possicio': equip.possicio,
+	'punts': equip.punts,
 	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
 	'contentbody': 'Manager per a la gestio de l`Escola',
 	'optionmenu1': 'Escola',
@@ -121,7 +134,27 @@ def detallequips(request):
 	'optionmenu3': 'Equip',
 	'optionmenu4': 'Instalacions',
 	'detallequips': detallequips,
-	})
+	}
 
 	return render_to_response('detallequips.html',variables)
 
+def detallinstall(request):
+	instalacion = Instalacion.objects.get()
+	#spec = Instalacion.specification.all()
+	#detallinstall = detallinstall.objects.all()
+
+	variables = {
+	'titlehead': 'Detall de les Instalacions',
+	'nom': instalacion.nom,
+	'direccio': instalacion.direccio,
+	
+	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
+	'contentbody': 'Manager per a la gestio de l`Escola',
+	'optionmenu1': 'Escola',
+	'optionmenu2': 'Reglament',
+	'optionmenu3': 'Equip',
+	'optionmenu4': 'Instalacions',
+	'detallinstall': detallinstall,
+	}
+
+	return render_to_response('detallinstall.html',variables)

@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from escola.views import *
+from escola.views import mainpage, escola, reglament, equip, instalacions, detallescoles, detallequips, detallinstall
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -13,7 +13,6 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
     url(r'^$', mainpage, name='home'),
     url(r'^login/$','django.contrib.auth.views.login'),
 
@@ -31,10 +30,13 @@ urlpatterns = patterns('',
     #instalacions
     url(r'^instalacions/$',instalacions),
     #detallequips
-    url(r'^models/(? P <detalls> \ w +) / $', detallescoles, nom = 'Detalls del model'),
     #detallescoles
     url(r'^detallescoles/$',detallescoles),
+    url(r'^detallequips/$',detallequips),
+
+    url(r'^detallinstall/$',detallinstall),
 
 
 
+    url(r'^admin/', include(admin.site.urls)),
 )
