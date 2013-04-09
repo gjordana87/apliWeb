@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+	<center>
+		<h2>Detall de Instal·lacions segons Escola triada </h2>
+		{% for a in detallinstall%}
+			<li>{{a.direccio}}
+			</li>
+		{%endfor%}
+	</center>
+
+{% endblock %}
