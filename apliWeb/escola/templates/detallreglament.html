@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+	{% if user.is_authenticated %}
+		<li><a href="{% url vista_logout %}">Tancar sessio</a></li>
+		{% else %}
+		<li><a href="{% url vista_login %}">Login</a></li>
+{% endif %}
+	
+	<center>
+<h3>Detalls Reglament {{normes}}</h3>
+		
+		
+		
+</center>
+
+
+ 
+
+
+{% endblock %}
