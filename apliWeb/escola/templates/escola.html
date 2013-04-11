@@ -2,21 +2,23 @@
 
 {% block contenido %}
 
-
-
 	<center>
+		
 		<h2>Llista de Escoles de  Futbol </h2>
-		{% for x in escoles %}
-		<p>{{ x.nom }}</br><a href="http://127.0.0.1:8000/detallescoles"> veure detall escola </a></p>
+				{% for x in escoles %}
 
+		<table>
+		<tr><td>{{ x.nom }} :</td><td><a href="/detallescoles"> veure detall escola </a></td></tr>
+		
+		</table>
+	
 		{% endfor %}
 
-	</br></br>		<a href="/base"> Tornar a menu </a>
+	</br></br>		<a href="/"> Tornar a menu </a>
 
 	</center>
 
 
- 
 
 
 {% endblock %}

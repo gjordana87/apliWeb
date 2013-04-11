@@ -1,13 +1,22 @@
 {% extends "base.html" %}
 
 {% block contenido %}
+
+
 	<center>
 		<h2>Llista de Equips </h2>
+
 		{% for x in equips %}
+
+		<table>
+		<tr><td>{{x.categoria}} :</td><td><a href="/detallequips/{{x.idEquip}}">Veure detall Equip</a></td></tr>
 		
-		 <li>{{ x.categoria}}</li><a href="/detallequips"> veure detall equip </a>
+		</table>
+
 		
 		{% endfor %}
+
+	
 	</center>
 
 {% endblock %}

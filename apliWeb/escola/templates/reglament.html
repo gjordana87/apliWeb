@@ -5,7 +5,11 @@
 	<center>
 		<h3>Reglament intern </h3>
 		{% for a in reglament %}
-			<li>{{a.normes }}</li>
+		<table>
+		<tr><td>{{a.normes }} :</td><td><a href="/detallreglament">Veure detall norma</a></td></tr>
+		
+		</table>
+		
 		{% endfor %}
 
 	<center>

@@ -1,6 +1,8 @@
 from django.conf.urls import patterns, include, url
-from escola.views import mainpage, escola, reglament, equip, instalacions, detallescoles, detallequips, detallinstall
-# Uncomment the next two lines to enable the admin:
+from escola.views import mainpage, escola, reglament, equip, instalacions, detallescoles, detallequips, detallinstall,detallreglament
+from escola.views import login_view, logout_view, base
+# Uncomment the next two lines to enable the admin:from django.contrib.auth.models import User
+
 from django.contrib import admin
 admin.autodiscover()
 
@@ -13,13 +15,16 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^$', mainpage, name='home'),
-    url(r'^login/$','django.contrib.auth.views.login'),
+    url(r'^$', mainpage),
+    url(r'^login/$','escola.views.login_view',name='vista_login'),
+    url(r'^logout/$','escola.views.logout_view',name='vista_logout'),
 
     #url(r'^base$', base, name='base'),
 
     #escola
-    url(r'^escola/$',escola),    
+    url(r'^escola/$',escola),
+    url(r'^base/$',base),    
+    
     #reglament
     url(r'^reglament/$',reglament),
     #equips
@@ -32,9 +37,13 @@ urlpatterns = patterns('',
     #detallequips
     #detallescoles
     url(r'^detallescoles/$',detallescoles),
+    url(r'^detallescoles/(?P<idEscole>\w+)/$', detallescoles , name='detallescoles'),
+
     url(r'^detallequips/$',detallequips),
 
     url(r'^detallinstall/$',detallinstall),
+    url(r'^detallreglament/$',detallreglament),
+
 
 
 
