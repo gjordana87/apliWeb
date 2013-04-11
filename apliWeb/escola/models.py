@@ -21,7 +21,7 @@ class Equip(models.Model):
 	imatge = models.ImageField(upload_to='escola', verbose_name='Imatge')
 	possicio = models.IntegerField('Possicio', help_text='Possicio en la classificacio')
 	punts = models.IntegerField('Punts Classificacio', max_length=2)
-	fkEscole = models.ManyToManyField(Escole)
+	fkEscole = models.ForeignKey(Escole)
 
 	def __unicode__ (self):
 		return self.categoria

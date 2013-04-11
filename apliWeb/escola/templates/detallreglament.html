@@ -5,11 +5,14 @@
 		<li><a href="{% url vista_logout %}">Tancar sessio</a></li>
 		{% else %}
 		<li><a href="{% url vista_login %}">Login</a></li>
-{% endif %}
-	
-	<center>
-<h3>Detalls Reglament {{normes}}</h3>
 		
+		{%endif%}
+	<center>
+<h2>{{numnorma}}. {{normes}}</h3>
+
+
+<p>Descripció :</p><p>{{descripcio}}</p>
+</table>		
 		
 		
 </center>

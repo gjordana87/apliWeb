@@ -58,7 +58,7 @@ def escola(request):
 
 def reglament(request):
 	reglament = Reglament.objects.all()
-	variables = Context({
+	variables = {
 	'titlehead': 'Reglaments',
 	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
 	'contentbody': 'Manager per a la gestio de l`Escola',
@@ -67,7 +67,7 @@ def reglament(request):
 	'optionmenu3': 'Equip',
 	'optionmenu4': 'Instalacions',
 	'reglament': reglament
-	})
+	}
 
 	return render_to_response('reglament.html',variables)
 
@@ -82,8 +82,7 @@ def equip(request):
 	'optionmenu3': 'Equip',
 	'optionmenu4': 'Instalacions',
 	'equips' : equip
-
-	}
+    }
 	return render_to_response('equip.html',variables)
 
 def instalacions(request):
@@ -100,33 +99,34 @@ def instalacions(request):
     }
 	return render_to_response('instalacions.html', variables)
 
-def detallescoles(request, idEscole):
+def detallescoles(request,idEscole):
 	try:
-	  		escola = Escole.objects.get(pk=idEscole)
-      		variables = {
-			'titlehead':"Detall de escoles",
-			'nom': escola.nom,
-			'direccio': escola.direccio,
-			'telf': escola.telf,
-			'president': escola.president,
-			'vicepresident': escola.vicepresident,
-			'coordinador': escola.coordinador,
-			'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
-			'contentbody': 'Manager per a la gestio de l`Escola',
-			'optionmenu1': 'Escola',
+            escola = Escole.objects.get(pk=idEscole)
+            variables = {
+            'titlehead':"Detall de escoles",
+            'nom': escola.nom,
+            'direccio': escola.direccio,
+            'telf': escola.telf,
+            'president': escola.president,
+            'vicepresident': escola.vicepresident,
+            'coordinador': escola.coordinador,
+            'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
+            'contentbody': 'Manager per a la gestio de l`Escola',
+            'optionmenu1': 'Escola',
 			'optionmenu2': 'Reglament',
 			'optionmenu3': 'Equip',
 			'optionmenu4': 'Instalacions',
+            #'detallescoles': detallescoles
 	}
 
 	except Escole.DoesNotExist:
 	 raise Http404
 	return render_to_response('detallescoles.html', variables)
 
-def detallequips(request):
+def detallequips(request,idEquip):
 	try:
 
-			equip = Equip.objects.get()
+			equip = Equip.objects.get(pk=idEquip)
 			variables = {
 			'titlehead': 'Detall equip ',
 			'categoria': equip.categoria,
@@ -141,16 +141,16 @@ def detallequips(request):
 			'optionmenu2': 'Reglament',
 			'optionmenu3': 'Equip',
 			'optionmenu4': 'Instalacions',
-			'detallequips': detallequips,
+			#'detallequips': detallequips,
 	}
 	except Equip.DoesNotExist:
 	 raise Http404
 	return render_to_response('detallequips.html',variables)
 
-def detallinstall(request, detall_install):
+def detallinstall(request, idInstalacions):
 	try:
 		
-			instalacion = Instalacion.objects.get(name=detall_install)
+			instalacion = Instalacion.objects.get(pk=idInstalacions)
 			variables = {
 			'titlehead': 'Detall de les Instalacions',
 			'nom': instalacion.nom,
@@ -162,7 +162,7 @@ def detallinstall(request, detall_install):
 			'optionmenu2': 'Reglament',
 			'optionmenu3': 'Equip',
 			'optionmenu4': 'Instalacions',
-			'detallinstall': detallinstall,
+			#'detallinstall': detallinstall,
 	}
 
 	except Instalacion.DoesNotExist:
@@ -185,10 +185,10 @@ def base(request):
 
 	return render_to_response('base.xml',variables)
 
-def detallreglament(request,detall_regla):
+def detallreglament(request,idReglament):
 	try:
 		
-			reglament = Reglament.objects.get(name=detall_regla)
+			reglament = Reglament.objects.get(pk=idReglament)
 			variables = {
 			'titlehead': 'Detall de les Instalacions',
 			'numnorma': reglament.numnorma,
@@ -200,7 +200,7 @@ def detallreglament(request,detall_regla):
 			'optionmenu2': 'Reglament',
 			'optionmenu3': 'Equip',
 			'optionmenu4': 'Instalacions',
-			'detallreglament': detallreglament,
+			#'detallreglament': detallreglament,
 	}
 
 	except Instalacion.DoesNotExist:

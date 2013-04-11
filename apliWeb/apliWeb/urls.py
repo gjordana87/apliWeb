@@ -34,13 +34,14 @@ urlpatterns = patterns('',
 
     #instalacions
     url(r'^instalacions/$',instalacions),
-    #detallequips
-    #detallescoles
+    
+    url(r'^detallescoles/(?P<idEscole>\w+)',detallescoles),
+    url(r'^detallequips/(?P<idEquip>\w+)',detallequips),
+    url(r'^detallinstall/(?P<idInstalacions>\w+)',detallinstall),
+    url(r'^detallreglament/(?P<idReglament>\w+)',detallreglament),
+    
     url(r'^detallescoles/$',detallescoles),
-    url(r'^detallescoles/(?P<idEscole>\w+)/$', detallescoles , name='detallescoles'),
-
     url(r'^detallequips/$',detallequips),
-
     url(r'^detallinstall/$',detallinstall),
     url(r'^detallreglament/$',detallreglament),
 
