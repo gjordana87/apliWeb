@@ -15,6 +15,16 @@
 <div id="layer-0">
 <h1>{{ pagetitle }}</h1>
 
+{% if user.username %}
+<p>Benvingut {{ user.username }}!
+Aquí podrà gestionar i visualitzar totes les Escoles!</p>
+{% else %}
+<p>Benvingut Usuari:
+Obligatori fer <a href="/login/">sign in</a>
+per gestionar Escoles.</p>
+{% endif %}
+
+
 </div>
 <div id="layer-1">
 <nav>	
@@ -23,11 +33,7 @@
 		<li><a href="/reglament">{{ optionmenu2 }}</a></li>
 		<li><a href="/equip">{{ optionmenu3 }}</a></li>
 		<li><a href="/instalacions">{{ optionmenu4 }}</a></li>
-		{% if user.is_authenticated %}
-		<li><a href="{% url vista_logout %}">Tancar sessio</a></li>
-		{% else %}
-		<li><a href="{% url vista_login %}">Login</a></li>
-		{% endif %}
+		
 
 
 	</ul>

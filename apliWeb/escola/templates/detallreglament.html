@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-	{% if user.is_authenticated %}
-		<li><a href="{% url vista_logout %}">Tancar sessio</a></li>
-		{% else %}
-		<li><a href="{% url vista_login %}">Login</a></li>
-		
-		{%endif%}
+	
 	<center>
-<h2>{{numnorma}}. {{normes}}</h3>
 
+<h2>{{numnorma}}. {{normes}}</h2>
 
-<p>Descripció :</p><p>{{descripcio}}</p>
+<table>
+		<tr><td>Numero Norma :</td><td>{{numnorma}}</td></tr>
+		<tr><td>Nom:</td><td>{{normes}}</td></tr>
+		<tr><td>Descripció:</td><td>{{descripcio}}</td></tr>
+
+		</table>
+		</br></br>		<a href="/reglament"> Tornar a menu </a>
 </table>		
 		
 		

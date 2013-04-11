@@ -6,8 +6,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.models import User
 from escola.models import Escole, Reglament, Equip, Instalacion
 from escola import *
-from django.contrib.auth import login, logout, authenticate
-from escola.forms import LoginForm
+#from django.contrib.auth import login, logout, authenticate
+#from escola.forms import LoginForm
 #from django.core.mail import EmailMultiAlternatives
 
 def mainpage(request):
@@ -25,25 +25,10 @@ def mainpage(request):
 	})
 	output = template.render(variables)
 	return HttpResponse(output)
-
-
-	return render_to_response(
-	'base.html', {
-	'titlehead': 'Escola aPP',
-	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
-	'contentbody': 'Manager per a la gestio de l`Escola',
-	'optionmenu1': 'Escola',
-	'optionmenu2': 'Reglament',
-	'optionmenu3': 'Equip',
-	'optionmenu4': 'Instalacions',
-	'user': request.user
-
-	})
-	return render_to_response()
-
 	
 def escola(request):
 	escola = Escole.objects.all()
+	context = RequestContext(request)
 	variables = {
 	'titlehead': 'Escoles',
 	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
@@ -51,13 +36,14 @@ def escola(request):
 	'optionmenu1': 'Escola',
 	'optionmenu2': 'Reglament',
 	'optionmenu3': 'Equip',
-	'optionmenu4': 'InstalacioLoginFormLoginFormns',
+	'optionmenu4': 'Instalacio',
 	'escoles': escola
 	}
-	return render_to_response('escola.html',variables)
+	return render_to_response('escola.html',variables, context)
 
 def reglament(request):
 	reglament = Reglament.objects.all()
+	context = RequestContext(request)
 	variables = {
 	'titlehead': 'Reglaments',
 	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
@@ -69,10 +55,12 @@ def reglament(request):
 	'reglament': reglament
 	}
 
-	return render_to_response('reglament.html',variables)
+	return render_to_response('reglament.html',variables, context)
 
 def equip(request):
 	equip = Equip.objects.all()
+	context = RequestContext(request)
+	escola = Escole.objects.filter(equip=equip)
 	variables = {
 	'titlehead': 'Equips',
 	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
@@ -83,10 +71,11 @@ def equip(request):
 	'optionmenu4': 'Instalacions',
 	'equips' : equip
     }
-	return render_to_response('equip.html',variables)
+	return render_to_response('equip.html',variables,context)
 
 def instalacions(request):
 	instalacions = Instalacion.objects.all()
+	context = RequestContext(request)
 	variables = {
 	'titlehead': 'Instalacions',
 	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
@@ -97,7 +86,7 @@ def instalacions(request):
 	'optionmenu4': 'Instalacions',
     'instalacions': instalacions
     }
-	return render_to_response('instalacions.html', variables)
+	return render_to_response('instalacions.html', variables,context)
 
 def detallescoles(request,idEscole):
 	try:
@@ -121,7 +110,8 @@ def detallescoles(request,idEscole):
 
 	except Escole.DoesNotExist:
 	 raise Http404
-	return render_to_response('detallescoles.html', variables)
+	context = RequestContext(request)
+	return render_to_response('detallescoles.html', variables, context)
 
 def detallequips(request,idEquip):
 	try:
@@ -135,6 +125,7 @@ def detallequips(request,idEquip):
 			'imatge': equip.imatge,
 			'possicio': equip.possicio,
 			'punts': equip.punts,
+			'escola': equip.fkEscole,
 			'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
 			'contentbody': 'Manager per a la gestio de l`Escola',
 			'optionmenu1': 'Escola',
@@ -145,7 +136,8 @@ def detallequips(request,idEquip):
 	}
 	except Equip.DoesNotExist:
 	 raise Http404
-	return render_to_response('detallequips.html',variables)
+	context = RequestContext(request)
+	return render_to_response('detallequips.html',variables, context)
 
 def detallinstall(request, idInstalacions):
 	try:
@@ -167,23 +159,9 @@ def detallinstall(request, idInstalacions):
 
 	except Instalacion.DoesNotExist:
 	 raise Http404
-	return render_to_response('detallinstall.html',variables)
+	context = RequestContext(request)
+	return render_to_response('detallinstall.html',variables,context)
 
-def base(request):
-	template = get_template('base.xml')
-	variables = Context({
-	'titlehead': 'Escola aPP',
-	'pagetitle': 'Benvingut a l`aplicatiu de l`Escola',
-	'contentbody': 'Manager per a la gestio de l`Escola',
-	'optionmenu1': 'Escola',
-	'optionmenu2': 'Reglament',
-	'optionmenu3': 'Equip',
-	'optionmenu4': 'Instalacions',
-	'user': request.user
-	
-	})
-
-	return render_to_response('base.xml',variables)
 
 def detallreglament(request,idReglament):
 	try:
@@ -205,33 +183,8 @@ def detallreglament(request,idReglament):
 
 	except Instalacion.DoesNotExist:
 	 raise Http404
-	return render_to_response('detallreglament.html',variables)
+	context = RequestContext(request)
+	return render_to_response('detallreglament.html',variables,context)
 
 
 
-
-def login_view(request):
-
-	missatge = ""
-	if request.user.is_authenticated():
-			return HttpResponseRedirect('/')
-	else:
-				if request.method == "POST":
-					form = LoginForm(request.POST)
-					if form.is_valid():
-							username = form.cleaned_data['username']
-							password = form.cleaned_data['password']
-							usuari = authenticate(username=username,password=password)
-							if usuari is not None and usuari.is_active:
-									login(request,usuari)
-									return HttpResponseRedirect('/')
-							else:
-									missatge = "Usuari i/o password incorrecte"
-				form = LoginForm()
-				ctx = {'form':form,'missatge':missatge}
-				return render_to_response('login.html',ctx,context_instance=RequestContext(request))	
-
-def logout_view(request):
-
-	logout(request)
-	return HttpResponseRedirect('/')					

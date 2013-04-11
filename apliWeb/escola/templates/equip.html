@@ -9,12 +9,13 @@
 		{% for x in equips %}
 
 		<table>
-		<tr><td>{{x.categoria}} :</td><td><a href="/detallequips/{{x.id}}">Veure detall Equip</a></td></tr>
+		<tr><td>{{fkEscole}}{{x.categoria}} :</td><td><a href="/detallequips/{{x.id}}">Veure detall Equip</a></td></tr>
 		
 		</table>
 
 		
 		{% endfor %}
+			</br></br>		<a href="/"> Tornar a menu </a>
 
 	
 	</center>

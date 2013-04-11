@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
-from escola.views import mainpage, escola, reglament, equip, instalacions, detallescoles, detallequips, detallinstall,detallreglament
-from escola.views import login_view, logout_view, base
+from escola.views import *
+
 # Uncomment the next two lines to enable the admin:from django.contrib.auth.models import User
 
 from django.contrib import admin
@@ -16,21 +16,21 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^$', mainpage),
-    url(r'^login/$','escola.views.login_view',name='vista_login'),
-    url(r'^logout/$','escola.views.logout_view',name='vista_logout'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout',{ 'next_page' : '/'}),
+    url(r'^login/$','django.contrib.auth.views.login'),
+    #url(r'^login/$',login),
 
-    #url(r'^base$', base, name='base'),
+
+
 
     #escola
     url(r'^escola/$',escola),
-    url(r'^base/$',base),    
+    
     
     #reglament
     url(r'^reglament/$',reglament),
     #equips
     url(r'^equip/$',equip),
-    #url(r'^equip/$','equip.views.equip'),
-    #url(r'^equip/(?P<equip_categoria>\W+)$',equip),
 
     #instalacions
     url(r'^instalacions/$',instalacions),
