@@ -2,14 +2,13 @@
 
 {% block contenido %}
 
-
 	<center>
 		<h2>Llista de Equips </h2>
 
 		{% for x in equips %}
 
 		<table>
-		<tr><td>{{fkEscole}}{{x.categoria}} :</td><td><a href="/detallequips/{{x.id}}">Veure detall Equip</a></td></tr>
+		<tr><td>{{x.escola}}{{x.categoria}} :</td><td><a href="/detallequips/{{x.id}}">Veure detall Equip</a></td></tr>
 		
 		</table>
 

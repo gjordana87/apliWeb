@@ -39,11 +39,14 @@ urlpatterns = patterns('',
     url(r'^detallequips/(?P<idEquip>\w+)',detallequips),
     url(r'^detallinstall/(?P<idInstalacions>\w+)',detallinstall),
     url(r'^detallreglament/(?P<idReglament>\w+)',detallreglament),
-    
+
+
+
     url(r'^detallescoles/$',detallescoles),
     url(r'^detallequips/$',detallequips),
     url(r'^detallinstall/$',detallinstall),
     url(r'^detallreglament/$',detallreglament),
+
 
 
 

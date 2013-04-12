@@ -17,13 +17,14 @@
 
 {% if user.username %}
 <p>Benvingut {{ user.username }}!
-Aquí podrà gestionar i visualitzar totes les Escoles!</p>
+Aquí podrà gestionar i visualitzar totes les Escoles. <a href="/logout">Logout</a></p>
 {% else %}
 <p>Benvingut Usuari:
 Obligatori fer <a href="/login/">sign in</a>
 per gestionar Escoles.</p>
-{% endif %}
 
+
+{% endif %}
 
 </div>
 <div id="layer-1">
@@ -33,9 +34,7 @@ per gestionar Escoles.</p>
 		<li><a href="/reglament">{{ optionmenu2 }}</a></li>
 		<li><a href="/equip">{{ optionmenu3 }}</a></li>
 		<li><a href="/instalacions">{{ optionmenu4 }}</a></li>
-		
-
-
+		<li><a href="/calendari">{{ optionmenu5 }}</a></li>
 	</ul>
 </nav>
 </br>
@@ -45,8 +44,8 @@ per gestionar Escoles.</p>
 {%block contenido %}
 <center></br></br>
 <h2> Fer Login per Entrar a l'aplicatiu </h2>
-
-<b>Important, Si no fas el Login no podràs veure en detall les Entitats. </br>
+<b> Aquest aplicatiu permet veure en detall informacio sobre les escoles de futbol registrades de tota la Provincia de Lleida.</b>
+</br><b> En el menu superior podreu veure amb més detall les opcions que té aquesta app.</b>
 </center>
 </div>
 {%endblock%}
