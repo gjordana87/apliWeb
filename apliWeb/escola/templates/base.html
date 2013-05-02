@@ -5,7 +5,7 @@
   <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />	
   <title>{% block titulo %}{{ titlehead}}{% endblock%}</title>
-  <link rel="stylesheet" type="text/css" href="../static/css/estil.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="{% static "css/estil.css" %}" media="screen" />
   
   </head>
 
@@ -13,7 +13,7 @@
 
 
 <div id="layer-0">
-<h1>{{ pagetitle }}</h1>
+<h1>Gestio Escoles de Futbol</h1>
 
 {% if user.username %}
 <p>Benvingut {{ user.username }}!
@@ -22,19 +22,17 @@ Aquí podrà gestionar i visualitzar totes les Escoles. <a href="/logout">Logout
 <p>Benvingut Usuari:
 Obligatori fer <a href="/login/">sign in</a>
 per gestionar Escoles.</p>
-
-
 {% endif %}
-
 </div>
+
 <div id="layer-1">
 <nav>	
 	<ul id="layer-1">
-		<li><a href="/escola">{{ optionmenu1 }}</a></li>
-		<li><a href="/reglament">{{ optionmenu2 }}</a></li>
-		<li><a href="/equip">{{ optionmenu3 }}</a></li>
-		<li><a href="/instalacions">{{ optionmenu4 }}</a></li>
-		<li><a href="/calendari">{{ optionmenu5 }}</a></li>
+		<li><a href="/escola"> Escoles</a></li>
+		<li><a href="/reglament">Reglaments</a></li>
+		<li><a href="/equip">Equips</a></li>
+		<li><a href="/instalacions">Instalacions</a></li>
+		<li><a href="/calendari"></a></li>
 	</ul>
 </nav>
 </br>
