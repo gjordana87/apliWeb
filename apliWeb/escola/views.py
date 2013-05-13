@@ -5,19 +5,14 @@ from django.template.loader import get_template
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.models import User
 from escola.models import Escole, Reglament, Equip, Instalacion
-#from django.contrib.auth import login, logout, authenticate
-#from escola.forms import LoginForm
-#from django.core.mail import EmailMultiAlternatives
+from forms import EscolaForm, EquipForm
+from django.views.generic.edit import CreateView
+from django.views.generic import DetailView
 
 def mainpage(request):
 	template = get_template('base.html')
 	variables = Context({
 	'titlehead': 'Escola aPP',
-	'pagetitle': 'Gestio Escoles de Futbol',
-	'optionmenu1': 'Escoles',
-	'optionmenu2': 'Reglaments',
-	'optionmenu3': 'Equips',
-	'optionmenu4': 'Instalacions',
 	'user': request.user
 
 	})
@@ -29,11 +24,7 @@ def escola(request):
 	context = RequestContext(request)
 	variables = {
 	'titlehead': 'Escoles',
-	'pagetitle': 'Gestio Escoles de Futbol',
-	'optionmenu1': 'Escoles',
-	'optionmenu2': 'Reglaments',
-	'optionmenu3': 'Equips',
-	'optionmenu4': 'Instalacio',
+	
 
 	'escoles': escola
 	}
@@ -44,12 +35,7 @@ def reglament(request):
 	context = RequestContext(request)
 	variables = {
 	'titlehead': 'Reglaments',
-	'pagetitle': 'Gestio Escoles de Futbol',
-	'optionmenu1': 'Escoles',
-	'optionmenu2': 'Reglaments',
-	'optionmenu3': 'Equips',
-	'optionmenu4': 'Instalacions',
-
+		
 	'reglament': reglament
 	}
 
@@ -61,11 +47,8 @@ def equip(request):
 	escola = Escole.objects.filter(equip=equip)
 	variables = {
 	'titlehead': 'Equips',
-	'pagetitle': 'Gestio Escoles de Futbol',
-	'optionmenu1': 'Escoles',
-	'optionmenu2': 'Reglaments',
-	'optionmenu3': 'Equips',
-	'optionmenu4': 'Instalacions',
+	
+	
 	'equips' : equip
 	
     }
@@ -76,12 +59,9 @@ def instalacions(request):
 	context = RequestContext(request)
 	variables = {
 	'titlehead': 'Instalacions',
-	'pagetitle': 'Gestio Escoles de Futbol',
-	'optionmenu1': 'Escoles',
-	'optionmenu2': 'Reglaments',
-	'optionmenu3': 'Equips',
-	'optionmenu4': 'Instalacions',
-    'instalacions': instalacions
+	
+	
+	'instalacions': instalacions
     }
 	return render_to_response('instalacions.html', variables,context)
 
@@ -98,12 +78,9 @@ def detallescoles(request,idEscole):
             'president': escola.president,
             'vicepresident': escola.vicepresident,
             'coordinador': escola.coordinador,
-            'pagetitle': 'Gestio Escoles de Futbol',
-            'optionmenu1': 'Escoles',
-			'optionmenu2': 'Reglaments',
-			'optionmenu3': 'Equips',
-			'optionmenu4': 'Instalacions',
-
+            
+            
+			
             #'detallescoles': detallescoles
 	}
 
@@ -125,11 +102,8 @@ def detallequips(request,idEquip):
 			'possicio': equip.possicio,
 			'punts': equip.punts,
 			'escola': equip.fkEscole,
-			'pagetitle': 'Gestio Escoles de Futbol',
-			'optionmenu1': 'Escoles',
-			'optionmenu2': 'Reglaments',
-			'optionmenu3': 'Equips',
-			'optionmenu4': 'Instalacions',
+			
+			
 			'detallequips': detallequips,
 
 
@@ -148,12 +122,8 @@ def detallinstall(request, idInstalacions):
 			'nom': instalacion.nom,
 			'direccio': instalacion.direccio,
 			'escola': instalacion.fkEscole,
-			'pagetitle': 'Gestio Escoles de Futbol',
-			'optionmenu1': 'Escoles',
-			'optionmenu2': 'Reglaments',
-			'optionmenu3': 'Equips',
-			'optionmenu4': 'Instalacions',
-
+			
+			
 			#'detallinstall': detallinstall,
 	}
 
@@ -172,15 +142,7 @@ def detallreglament(request,idReglament):
 			'numnorma': reglament.numnorma,
 			'normes': reglament.normes,
 			'descripcio': reglament.descrip,
-			'escola': reglament.fkEscole,
-			'pagetitle': 'Gestio Escoles de Futbol',
-			'optionmenu1': 'Escoles',
-			'optionmenu2': 'Reglaments',
-			'optionmenu3': 'Equips',
-			'optionmenu4': 'Instalacions',
-
-
-
+			'escola': reglament.fkEscole,		
 			#'detallreglament': detallreglament,
 	}
 
@@ -188,5 +150,26 @@ def detallreglament(request,idReglament):
 	 raise Http404
 	context = RequestContext(request)
 	return render_to_response('detallreglament.html',variables,context)
+
+
+class EscolaCreate(CreateView):
+	model = Escole
+	template_name = 'form.html'
+	form_class = EscolaForm
+	
+	def	form_valid(self, form):
+		form.instance.user = self.request.user
+		return super(EscolaCreate, self).form_valid(form)
+
+
+class EquipCreate(CreateView):
+	model = Equip
+	template_name = 'form.html'
+	form_class = EquipForm
+
+	def	form_valid(self, form):
+		form.instance.user = self.request.user
+		form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
+		return super(EquipCreate, self).form_valid(form)
 
 
