@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     url(r'^login/$','django.contrib.auth.views.login'),
     #url(r'^login/$',login),
 
-    #escola
+    #escolaInstalacio
     url(r'^escola/$',escola),
         
     #reglament
@@ -46,13 +46,15 @@ urlpatterns = patterns('',
     url(r'^detallreglament/(?P<idReglament>\w+)/',detallreglament),
 
 
-   #    Create  Escola, 
-    url(r'^escola/Crear/$',EscolaCreate.as_view(),name='escola_create'),
-
+   # Crear Escola, equip, reglament, instalacions 
+    url(r'^escola/Crear/$',EscolaCreate.as_view(),  name='escola_create'),
+    url(r'^equip/Crear/$',EquipCreate.as_view(),name='equip_create'),
+    url(r'^reglament/Crear/$',ReglamentCreate.as_view(),name='reglament_create'),
+    url(r'^instalacions/Crear/$',InstalacioCreate.as_view(),name='instalacio_create'),
+    url(r'^ok/$',ok),
     #   Edit    restaurant  details,    ex.:/myrestaurants/restaurants/1/edit/
-    url(r'^escola/(?P<pk>\d+)/edit/$',UpdateView.as_view(model = Escole,template_name = 'templates/form.html',form_class = EscolaForm),name='escola_edit'),
-
-
+    url(r'^escola/(?P<pk>\d+)/edit$',UpdateView.as_view(model = Escole,template_name = 'templates/form.html',form_class = EscolaForm),name='escola_edit'),
+    url(r'^equip/(?P<pk>\d+)/edit/$',UpdateView.as_view(model = Equip,template_name = 'templates/form.html',form_class = EquipForm),name='equip_edit'),
 
     url(r'^admin/', include(admin.site.urls)),
 ) #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

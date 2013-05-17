@@ -5,9 +5,10 @@ from django.template.loader import get_template
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.models import User
 from escola.models import Escole, Reglament, Equip, Instalacion
-from forms import EscolaForm, EquipForm
+from forms import EscolaForm, EquipForm, ReglamentForm, InstalacionForm
 from django.views.generic.edit import CreateView
 from django.views.generic import DetailView
+from django.views.generic import UpdateView
 
 def mainpage(request):
 	template = get_template('base.html')
@@ -18,14 +19,22 @@ def mainpage(request):
 	})
 	output = template.render(variables)
 	return HttpResponse(output)
+
+
+def ok(request):
+	#escola = Escole.objects.all()
+	context = RequestContext(request)
+	variables = {
+	'titlehead': 'ok',
+	'ok': ok
+	}
+	return render_to_response('ok.html',variables, context)
 	
 def escola(request):
 	escola = Escole.objects.all()
 	context = RequestContext(request)
 	variables = {
 	'titlehead': 'Escoles',
-	
-
 	'escoles': escola
 	}
 	return render_to_response('escola.html',variables, context)
@@ -35,7 +44,6 @@ def reglament(request):
 	context = RequestContext(request)
 	variables = {
 	'titlehead': 'Reglaments',
-		
 	'reglament': reglament
 	}
 
@@ -46,9 +54,7 @@ def equip(request):
 	context = RequestContext(request)
 	escola = Escole.objects.filter(equip=equip)
 	variables = {
-	'titlehead': 'Equips',
-	
-	
+	'titlehead': 'Equips',	
 	'equips' : equip
 	
     }
@@ -58,9 +64,7 @@ def instalacions(request):
 	instalacions = Instalacion.objects.all()
 	context = RequestContext(request)
 	variables = {
-	'titlehead': 'Instalacions',
-	
-	
+	'titlehead': 'Instalacions',	
 	'instalacions': instalacions
     }
 	return render_to_response('instalacions.html', variables,context)
@@ -78,9 +82,6 @@ def detallescoles(request,idEscole):
             'president': escola.president,
             'vicepresident': escola.vicepresident,
             'coordinador': escola.coordinador,
-            
-            
-			
             #'detallescoles': detallescoles
 	}
 
@@ -102,11 +103,7 @@ def detallequips(request,idEquip):
 			'possicio': equip.possicio,
 			'punts': equip.punts,
 			'escola': equip.fkEscole,
-			
-			
 			'detallequips': detallequips,
-
-
 	}
 	except Equip.DoesNotExist:
 	 raise Http404
@@ -122,8 +119,6 @@ def detallinstall(request, idInstalacions):
 			'nom': instalacion.nom,
 			'direccio': instalacion.direccio,
 			'escola': instalacion.fkEscole,
-			
-			
 			#'detallinstall': detallinstall,
 	}
 
@@ -171,5 +166,49 @@ class EquipCreate(CreateView):
 		form.instance.user = self.request.user
 		form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
 		return super(EquipCreate, self).form_valid(form)
+	#def delete(self):
+	#	print"Delete myModel1 called"
+	#	super (Equip, self).delete()
+
+class ReglamentCreate(CreateView):
+	model = Reglament
+	template_name = 'form.html'
+	form_class = ReglamentForm
+
+	def	form_valid(self, form):
+		form.instance.user = self.request.user
+		#form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
+		return super(ReglamentCreate, self).form_valid(form)
+
+class InstalacioCreate(CreateView):
+	model = Instalacion
+	template_name = 'form.html'
+	form_class = InstalacionForm
+
+	def	form_valid(self, form):
+		form.instance.user = self.request.user
+		#form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
+		return super(InstalacioCreate, self).form_valid(form)
+
+def	review(request,	pk):
+	escola	=	get_object_or_404(escola,pk=pk)	
+	review	  =	 RestaurantReview(	
+		rating=request.POST['rating'],
+		comment=request.POST['comment'],
+		user=request.user,
+		escola=escola)
+	review.save()
+	return HttpResponseRedirect(reverse('escola:escola_detail',args=(escola.id,)))
+
+
+
+
+
+
+  
+
+  
+
+
 
 

@@ -4,10 +4,16 @@ from models	import Escole, Reglament, Equip, Instalacion
 class	EscolaForm(ModelForm):
 	class	Meta:
 		model	=	Escole
-		#exclude	=	('user','date',)
-
-
 class	EquipForm(ModelForm):
 	class	Meta:
 		model	=	Equip
-		#exclude	=	('user','date')
+		exclude	=	('imatge')
+
+class	ReglamentForm(ModelForm):
+	class	Meta:
+		model	=	Reglament
+
+class	InstalacionForm(ModelForm):
+	class	Meta:
+		model	=	Instalacion
+
