@@ -19,16 +19,6 @@ def mainpage(request):
 	})
 	output = template.render(variables)
 	return HttpResponse(output)
-
-
-def ok(request):
-	#escola = Escole.objects.all()
-	context = RequestContext(request)
-	variables = {
-	'titlehead': 'ok',
-	'ok': ok
-	}
-	return render_to_response('ok.html',variables, context)
 	
 def escola(request):
 	escola = Escole.objects.all()
@@ -37,6 +27,7 @@ def escola(request):
 	'titlehead': 'Escoles',
 	'escoles': escola
 	}
+
 	return render_to_response('escola.html',variables, context)
 
 def reglament(request):
@@ -82,6 +73,7 @@ def detallescoles(request,idEscole):
             'president': escola.president,
             'vicepresident': escola.vicepresident,
             'coordinador': escola.coordinador,
+            'idEscole': idEscole,
             #'detallescoles': detallescoles
 	}
 
@@ -190,15 +182,15 @@ class InstalacioCreate(CreateView):
 		#form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
 		return super(InstalacioCreate, self).form_valid(form)
 
-def	review(request,	pk):
-	escola	=	get_object_or_404(escola,pk=pk)	
-	review	  =	 RestaurantReview(	
-		rating=request.POST['rating'],
-		comment=request.POST['comment'],
-		user=request.user,
-		escola=escola)
-	review.save()
-	return HttpResponseRedirect(reverse('escola:escola_detail',args=(escola.id,)))
+#def	review(request,	pk):
+#	escola	=	get_object_or_404(escola,pk=pk)	
+#	review	  =	 RestaurantReview(	
+#		rating=request.POST['rating'],
+#		comment=request.POST['comment'],
+#		user=request.user,
+#		escola=escola)
+#	review.save()
+#	return HttpResponseRedirect(reverse('escola:escola_detail',args=(escola.id,)))
 
 
 

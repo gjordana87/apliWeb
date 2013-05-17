@@ -2,6 +2,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
+from django.core.urlresolvers import reverse	
+  
+
 
 class Escole(models.Model):
 	nom = models.CharField('Nom', max_length=20, help_text='Nom Escola')
@@ -13,6 +16,9 @@ class Escole(models.Model):
 	
 	def __unicode__(self):
 		return self.nom
+	def get_absolute_url(self):
+		return reverse('detail_escola',kwargs={'idEscole':self.pk})
+
 
 class Equip(models.Model):
 	categoria = models.CharField('Categoria', max_length=15, help_text='Nom de la categoria')
@@ -25,6 +31,8 @@ class Equip(models.Model):
 
 	def __unicode__ (self):
 		return self.categoria
+	def get_absolute_url(self):
+		return reverse('detail_equip',kwargs={'idEquip':self.pk})
 	
 
 class Instalacion(models.Model):
@@ -34,6 +42,9 @@ class Instalacion(models.Model):
 
 	def __unicode__(self):
 		return self.nom
+	def get_absolute_url(self):
+		return reverse('detail_instal',kwargs={'idInstalacions':self.pk})
+	
 	
 
 class Reglament(models.Model):
@@ -44,5 +55,6 @@ class Reglament(models.Model):
 	
 	def __unicode__(self):
 		return self.normes
-
+	def get_absolute_url(self):
+		return reverse('detail_regla',kwargs={'idReglament':self.pk})
 
