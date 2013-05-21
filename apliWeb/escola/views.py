@@ -4,11 +4,39 @@ from django.template import Context,RequestContext
 from django.template.loader import get_template
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.models import User
+from django.contrib import auth
 from escola.models import Escole, Reglament, Equip, Instalacion
 from forms import EscolaForm, EquipForm, ReglamentForm, InstalacionForm
+#from django.contrib.auth.forms import DeleteNewForm
 from django.views.generic.edit import CreateView
 from django.views.generic import DetailView
 from django.views.generic import UpdateView
+
+#def logout(request):
+#    param = { 'titlehead' : "Log out",
+#	      'state': "Thanks for use Notebookcompare, Feel free to come back when you want!"}
+#    return render_to_response('base.html',param)
+
+#def register(request):
+#	template_name = 'form.html'
+#	form_class = UserCreationForm
+
+#	def	form_valid(self, form):
+#		form.instance.user = self.request.user
+#		return super(UserCreationForm, self).form_valid(form)
+
+#def register(request):
+#   if request.method == 'POST':
+#       form = UserCreationForm(request.POST)
+#        if form.is_valid():
+#            new_user = form.save()
+#            return HttpResponseRedirect("/")
+#    else:
+#        form = UserCreationForm()
+#    return render(request, "registration/register.html", {
+ #       'form': form,
+#    })
+
 
 def mainpage(request):
 	template = get_template('base.html')
@@ -96,6 +124,7 @@ def detallequips(request,idEquip):
 			'punts': equip.punts,
 			'escola': equip.fkEscole,
 			'detallequips': detallequips,
+			'idEquip': idEquip,
 	}
 	except Equip.DoesNotExist:
 	 raise Http404
@@ -111,6 +140,7 @@ def detallinstall(request, idInstalacions):
 			'nom': instalacion.nom,
 			'direccio': instalacion.direccio,
 			'escola': instalacion.fkEscole,
+			'idInstalacions': idInstalacions,
 			#'detallinstall': detallinstall,
 	}
 
@@ -129,7 +159,8 @@ def detallreglament(request,idReglament):
 			'numnorma': reglament.numnorma,
 			'normes': reglament.normes,
 			'descripcio': reglament.descrip,
-			'escola': reglament.fkEscole,		
+			'escola': reglament.fkEscole,
+			'idReglament': idReglament,	
 			#'detallreglament': detallreglament,
 	}
 
@@ -156,11 +187,8 @@ class EquipCreate(CreateView):
 
 	def	form_valid(self, form):
 		form.instance.user = self.request.user
-		form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
+		#form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
 		return super(EquipCreate, self).form_valid(form)
-	#def delete(self):
-	#	print"Delete myModel1 called"
-	#	super (Equip, self).delete()
 
 class ReglamentCreate(CreateView):
 	model = Reglament
@@ -182,25 +210,20 @@ class InstalacioCreate(CreateView):
 		#form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
 		return super(InstalacioCreate, self).form_valid(form)
 
-#def	review(request,	pk):
-#	escola	=	get_object_or_404(escola,pk=pk)	
-#	review	  =	 RestaurantReview(	
-#		rating=request.POST['rating'],
-#		comment=request.POST['comment'],
-#		user=request.user,
-#		escola=escola)
-#	review.save()
-#	return HttpResponseRedirect(reverse('escola:escola_detail',args=(escola.id,)))
+def delete(request,id):
+	escola = Escola.objects.get(pk=id)
+	escola.delete()
+	return HttpResponse('deleted')
+#class Delete(request,new_id):
+#	new_to_delete = get_object_or_404(New,id=new_id)
+#	if request.method == 'POST':
+#		form = DeleteNewForm(request.POST, instance=new_to_delete)
 
+#		if form.is_valid():
+#			new_to_delete.delete()
+#			return HttpResponseRedirect("/escoles")
+#	else:
+#		form= DeleteNewForm(instance=new_to_delete)
 
-
-
-
-
-  
-
-  
-
-
-
-
+#	template_vars ={'form':form}
+#	return render(request, 'escola/deleteNew.html', template_vars)

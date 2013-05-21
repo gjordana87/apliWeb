@@ -1,16 +1,19 @@
 {% extends "base.html" %}
 
 {% block contenido %}
+<button onclick="location.href='/instalacions'">Tornar Enrere</button>
+<button onclick="location.href='/'"> Inici</button>
 <center>
 	<h3>Detalls Intal·lació {{nom}}</h3>
 		
+	</br><button onclick="location.href='/escola/{{idInstalacions}}/edit/'"> Editar Instalacio</button>
 		<table>
-		<tr><td>Nom :</td><td>{{nom}}</td></tr>
-		<tr><td>Direcció:</td><td>{{direccio}}</td></tr>
+		<tr><td><b>Nom :</b></td><td>{{nom}}</td></tr>
+		<tr><td><b>Direcció:</b></td><td>{{direccio}}</td></tr>
 
-		<tr><td>Escola :</td><td>{{escola.nom}}</td></tr>
+		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>
 
 		</table>
-	</br><a href="edit/" > Editar detalls Instalacio</a></br>		<a href="/instalacions"> Tornar a menu </a>
+	
 </center>
 {% endblock %}

@@ -1,20 +1,27 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-
+<button onclick="location.href='/escola'"> Tornar Enrere</button>
+<button onclick="location.href='/'"> Inici</button>
 <center>
 <h3>Detalls escola {{nom}}</h3>
+</br><button onclick="location.href='/escola/{{idEscole}}/edit/'" > Editar Escola</button>	
 		<table>
-		<tr><td>Nom escola :</td><td>{{nom}}</td></tr>
-		<tr><td>Direccio :</td><td>{{direccio}}</td></tr>
-		<tr><td>Telefon :</td><td>{{telf}}</td></tr>
-		<tr><td>Pressident :</td><td>{{president}}</td></td>
-		<tr><td>Vicepressident :</td><td>{{vicepresident}}</td></tr>
-		<tr><td>Coordinador :</td><td>{{coordinador}}</td></tr>
+		<tr><td><b>Nom escola :</b></td><td>{{nom}}</td></tr>
+		<tr><td><b>Direccio :</b></td><td>{{direccio}}</td></tr>
+		<tr><td><b>Telefon :</b></td><td>{{telf}}</td></tr>
+		<tr><td><b>Pressident :</b></td><td>{{president}}</td></td>
+		<tr><td><b>Vicepressident :</b></td><td>{{vicepresident}}</td></tr>
+		<tr><td><b>Coordinador :</b></td><td>{{coordinador}}</td></tr>
 
 		</table>
 
-		</br><a href="/escola/{{idEscole}}/edit/" > Editar detalls Escola</a>	<br>		<a href="/escola"> Tornar a menu </a>
+
+
+<button onclick="location.href='/escola/delete/{{idEscole}}/'">Delete</button>
+
+
+
 </center>
  
 {% endblock %}

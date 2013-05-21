@@ -1,25 +1,40 @@
 {% extends "base.html" %}
 
 {% block contenido %}
+<button onclick="location.href='/equip'"> Tornar Enrere </button> 
+<br><button onclick="location.href='/'"> Inici </button> <br> 
+
+
 	
 	
 	<center>
 <h3>Detalls equip {{categoria}} </h3>
+</br><button onclick="location.href='/equip/{{idEquip}}/edit/'" > Editar Equip </button>
 		
 		<table>
-		<tr><td>Nom Equip :</td><td>{{categoria}}</td></tr>
-		<tr><td>Nombre de Jugadors:</td><td>{{numjug}}</td></tr>
-		<tr><td>Entrenador:</td><td>{{entrenador}}</td></tr>
-		<tr><td>Posicio :</td><td>{{possicio}}</td></td>
-		<tr><td>Punts :</td><td>{{punts}}</td></tr>
-		<tr><td>Imatge :</td><td><img src="{{imatge}}"/></td></tr>
+		<tr><td><b>Nom Equip :</b></td><td>{{categoria}}</td></tr>
+		<tr><td><b>Nombre de Jugadors:</b></td><td>{{numjug}}</td></tr>
+		<tr><td><b>Entrenador:</b></td><td>{{entrenador}}</td></tr>
+		<tr><td><b>Posicio :</b></td><td>{{possicio}}</td></td>
+		<tr><td><b>Punts :</b></td><td>{{punts}}</td></tr>
+		<tr><td><b>Imatge :</b></td><td><img src="{{imatge}}"/></td></tr>
 	
-		<tr><td>Escola :</td><td>{{escola.nom}}</td></tr>
+		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>
 		
 
 		</table>
-		</br><a href="/escola/{{pk}}/edit/" > Editar detalls Equip </a>	<br>	<a href="/equip"> Tornar a menu </a>  
-		
+
+	<script > 
+	$(function()	{
+			var	escoles	=	["Guissona", "Lleida", "Tarrega", "Agramunt", "Mollerussa", "Linyola", "Termens", "Cervera", "Artesa", "Les Borges", "Barcelona", "Tarragona", "Girona", "Balaguer", "Torrefarrera"];
+			$(	"#id_escoles"	).autocomplete({
+				source:	escoles
+			});
+		});
+	</script>
+
+
+Cercar:<input type="text" id="id_escoles">		
 </center>
 
 

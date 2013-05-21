@@ -5,23 +5,24 @@
 	<br>
 	<br>
 	<center>
-	<form method="post"	action="">
+	<form method="post"	action="" >
 				{%	csrf_token %}
 		<table>
 			{{	form.as_table }}
 		</table>
-			<input type="submit" value="Submit" />
+		<input type="submit" value="Submit" onclick="alert('Entitat Creada/Editada correctament	!')"/>
 	</form>
 	</center>
 
-
-	<!--<script>
-		$(function()	{
-			var	countries	=	["Afghanistan",	"Albania",..."Zaire",	"Zambia",	"Zimbabwe"];
-			$(	"#id_country"	).autocomplete({
-				source:	countries
+	<script > 
+	$(function()	{
+			var	escoles	=	["Guissona", "Lleida", "Tarrega", "Agramunt", "Mollerussa", "Linyola", "Termens", "Cervera", "Artesa", "Les Borges", "Barcelona", "Tarragona", "Girona", "Balaguer", "Torrefarrera"];
+			$(	"#	id_escoles"	).autocomplete({
+				source:	escoles
 			});
 		});
-	</script> -->
+	</script>
+
+	 
 
 {%	endblock	%}

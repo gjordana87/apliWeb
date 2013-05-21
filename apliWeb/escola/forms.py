@@ -17,3 +17,7 @@ class	InstalacionForm(ModelForm):
 	class	Meta:
 		model	=	Instalacion
 
+#class DeleteNewForm(forms.ModelForm):
+#	class Meta:
+#		model = New
+#		fields= []

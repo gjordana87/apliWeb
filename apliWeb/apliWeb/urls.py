@@ -2,9 +2,9 @@ from django.conf.urls import patterns, include, url
 from escola.views import *
 from django.conf.urls.static import static
 from django.conf import settings
-from django.views.generic import DetailView, ListView, UpdateView
+from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 
-
+from django.conf.urls.defaults import *
 # Uncomment the next two lines to enable the admin:from django.contrib.auth.models import User
 
 from django.contrib import admin
@@ -20,6 +20,9 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^$', mainpage),
+    #url(r'^login/$', 'django.contrib.auth.views.login'),
+    #url(r'^logout/$', logout),
+    #url(r'^register/$',register),
     url(r'^logout/$', 'django.contrib.auth.views.logout',{ 'next_page' : '/'}),
     url(r'^login/$','django.contrib.auth.views.login'),
     #url(r'^login/$',login),
@@ -46,14 +49,21 @@ urlpatterns = patterns('',
     url(r'^detallreglament/(?P<idReglament>\w+)/',detallreglament, name='detail_regla'),
 
 
+#web 2.0
    # Crear Escola, equip, reglament, instalacions 
     url(r'^escola/Crear/$',EscolaCreate.as_view(),  name='escola_create'),
     url(r'^equip/Crear/$',EquipCreate.as_view(),name='equip_create'),
     url(r'^reglament/Crear/$',ReglamentCreate.as_view(),name='reglament_create'),
     url(r'^instalacions/Crear/$',InstalacioCreate.as_view(),name='instalacio_create'),
+    
     #   Edit    restaurant  details,    ex.:/myrestaurants/restaurants/1/edit/
     url(r'^escola/(?P<pk>\d+)/edit/$',UpdateView.as_view(model = Escole,template_name = 'form.html',form_class = EscolaForm),name='escola_edit'),
     url(r'^equip/(?P<pk>\d+)/edit/$',UpdateView.as_view(model = Equip,template_name = 'form.html',form_class = EquipForm),name='equip_edit'),
+    url(r'^instalacions/(?P<pk>\d+)/edit/$',UpdateView.as_view(model = Instalacion,template_name = 'form.html',form_class = InstalacionForm),name='install_edit'),
+    url(r'^reglament/(?P<pk>\d+)/edit/$',UpdateView.as_view(model = Reglament,template_name = 'form.html',form_class = ReglamentForm),name='reglament_edit'),
+
+    #Delete 
+    url(r'^delete/(?P<pk>\d+)delete/$',delete,'apliWeb.escola.views.delete'),
 
     url(r'^admin/', include(admin.site.urls)),
 ) #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

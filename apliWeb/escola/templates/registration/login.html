@@ -1,14 +1,8 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-
-{% if form.has_errors %}
-			<p>Error validant usuari.</p>
-		{% endif %}
-<center>
-<h2>Entrada usuari <h2>
-		
-		<form method="post" action="{% url django.contrib.auth.views.login%}">
+<br><center>
+<form method="post" action="{% url django.contrib.auth.views.login%}">
 		{% csrf_token %}
 		
 			<table>
@@ -29,12 +23,7 @@
 		
 		</form>
 
-
-
-
-
-
 </center>
 
 
-{%endblock%}
+{% endblock %}

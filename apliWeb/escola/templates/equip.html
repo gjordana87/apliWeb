@@ -1,20 +1,23 @@
 {% extends "base.html" %}
 
 {% block contenido %}
+<button onclick="location.href='/'"> Inici</button>
+
 
 	<center>
 		<h2>Llista de Equips </h2>
+		</br><button onclick="location.href='Crear'" > Inserir Equip </button>
 
 		{% for x in equips %}
 
 		<table>
-		<tr><td>{{x.escola}}{{x.categoria}} :</td><td><a href="/detallequips/{{x.id}}">Veure detall Equip</a></td></tr>
+		<tr><td><b>{{x.escola}}{{x.categoria}} :</b></td><td><a href="/detallequips/{{x.id}}" class="myButton">Detalls</a></td></tr>
 		
 		</table>
 
 		
 		{% endfor %}
-			</br><a href="Crear" > Inserir nou Equip </a></br><a href="/"> Tornar a menu </a>
+		
 
 	
 	</center>

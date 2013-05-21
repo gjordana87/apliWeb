@@ -1,25 +1,21 @@
 {% extends "base.html" %}
 
 {% block contenido %}
+	<button onclick="location.href='/'"> Inici</button>
 
 	<center>
 		
 		<h2>Llista de Escoles de  Futbol </h2> 	
-	</br><button><a href="Crear" > Crear </a></button>
-	<button><a href="/"> Tornar a menu </a></button>
+	</br><button onclick="location.href='Crear'" alt="Crear nou equip" > Crear </a></button>	
+	
 				{% for x in escoles %}
 
 		<table>
-		<tr><td>{{ x.nom }} :</td><td><a href="/detallescoles/{{x.id}}/"> veure detall escola </a></td></tr>
+		<tr><td><b>{{ x.nom }} :</b></td><td><a href="/detallescoles/{{x.id}}/" class="myButton"> veure detall escola </a></td></tr>
 		
 		</table>
 	
 		{% endfor %}
 
-
 	</center>
-
-
-
-
 {% endblock %}

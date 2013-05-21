@@ -1,18 +1,20 @@
 {% extends "base.html" %}
 
 {% block contenido %}
+<button onclick="location.href='/reglament'"> Tornar Enrere</button>
+<button onclick="location.href='/'"> Inici</button>
 	
 	<center>
 
 <h2>{{numnorma}}. {{normes}}</h2>
 
+</br><button onclick="location.href='/reglament/{{idReglament}}/edit/'" > Editar Reglament</button>
 <table>
-		<tr><td>Descripció:</td><td>{{descripcio}}</td></tr>
-		<tr><td>Escola :</td><td>{{escola.nom}}</td></tr>
+		<tr><td><b>Descripció:</b></td><td>{{descripcio}}</td></tr>
+		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>
 
 
 		</table>
-		</br><a href="edit/" > Editar detalls Reglament</a></br>		<a href="/reglament"> Tornar a menu </a>
 </table>		
 		
 		

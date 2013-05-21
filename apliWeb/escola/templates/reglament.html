@@ -1,17 +1,20 @@
 {% extends "base.html" %}
 
 {% block contenido %}
+	<button onclick="location.href='/'"> Inici</button>
+
 
 	<center>
 		<h3>Reglament intern </h3>
+	</br><button onclick="location.href='Crear'" > Agregar Reglament </button>
 		{% for x in reglament %}
 		<table>
-		<tr><td>{{x.numnorma}}.{{x.normes }} :</td><td><a href="/detallreglament/{{x.id}}">Veure detall norma</a></td></tr>
+		<tr><td><b>{{x.numnorma}}.{{x.normes }} :</b></td><td><a href="/detallreglament/{{x.id}}" class="myButton"> Detalls</a></td></tr>
 		
 		</table>
 		
 		{% endfor %}
-			</br><a href="Crear" > Inserir nou Reglament </a></br>		<a href="/"> Tornar a menu </a>
+		
 
 	<center>
 {% endblock %}
