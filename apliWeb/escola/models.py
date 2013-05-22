@@ -11,7 +11,7 @@ class Escole(models.Model):
 	president = models.CharField('President', max_length=200, help_text='Nom del actual President')
 	vicepresident = models.CharField('Vicepresident', max_length=200, help_text='Nom del actual Vicepresident')
 	coordinador = models.CharField('Coordinador', max_length=200, help_text='Nom del actual Coordinador')
-	user = models.ForeignKey(User)
+	user = models.ForeignKey(User, blank=False)
 	date = models.DateField(default=date.today)
 	
 	def __unicode__(self):
@@ -30,7 +30,7 @@ class Equip(models.Model):
 	possicio = models.IntegerField('Possicio', help_text='Possicio en la classificacio')
 	punts = models.IntegerField('Punts Classificacio', max_length=2)
 	fkEscole = models.ForeignKey(Escole)
-	user = models.ForeignKey(User)
+	user = models.ForeignKey(User, blank=False)
 	date = models.DateField(default=date.today)
 
 	def __unicode__ (self):
@@ -45,7 +45,7 @@ class Instalacion(models.Model):
 	nom = models.CharField('Nom', max_length=20, help_text='Nom Escola')
 	direccio = models.CharField('Direccio', max_length=40, help_text='Direccio de Escola')
 	fkEscole = models.ForeignKey(Escole)
-	user = models.ForeignKey(User)
+	user = models.ForeignKey(User, blank=False)
 	date = models.DateField(default=date.today)
 
 	def __unicode__(self):
@@ -61,7 +61,7 @@ class Reglament(models.Model):
 	normes = models.CharField('Nom Norma', max_length=20)
 	descrip = models.TextField('Descripcio', max_length=2000, help_text='Descripcio')
 	fkEscole = models.ForeignKey(Escole)
-	user = models.ForeignKey(User)
+	user = models.ForeignKey(User, blank=False)
 	date = models.DateField(default=date.today)
 	
 	def __unicode__(self):

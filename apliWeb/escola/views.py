@@ -14,6 +14,7 @@ from forms import EscolaForm, EquipForm, ReglamentForm, InstalacionForm
 from django.views.generic.edit import CreateView
 from django.views.generic import DetailView
 from django.views.generic import UpdateView
+from django.views.generic import DeleteView
 
 class LoginRequiredMixin(object):
 
@@ -202,10 +203,10 @@ class InstalacioCreate(LoginRequiredMixin, CreateView):
 		#form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
 		return super(InstalacioCreate, self).form_valid(form)
 
-def delete(request,id):
-	escola = Escola.objects.get(pk=id)
-	escola.delete()
-	return HttpResponse('deleted')
+def EscolaDelete(DeleteView):
+	model = Escole 
+	template_name = 'delete.html'
+	reverse_lazy('escola_delete')
 #class Delete(request,new_id):
 #	new_to_delete = get_object_or_404(New,id=new_id)
 #	if request.method == 'POST':

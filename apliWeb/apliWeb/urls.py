@@ -57,6 +57,9 @@ urlpatterns = patterns('',
     url(r'^reglament/Crear/$',ReglamentCreate.as_view(),name='reglament_create'),
     url(r'^instalacions/Crear/$',InstalacioCreate.as_view(),name='instalacio_create'),
     
+    #url(r'^escola/delete/$',escola_delete,  name='escola_delete'),
+
+   
     #   Edit    restaurant  details,    ex.:/myrestaurants/restaurants/1/edit/
     url(r'^escola/(?P<pk>\d+)/edit/$',UpdateView.as_view(model = Escole,template_name = 'form.html',form_class = EscolaForm),name='escola_edit'),
     url(r'^equip/(?P<pk>\d+)/edit/$',UpdateView.as_view(model = Equip,template_name = 'form.html',form_class = EquipForm),name='equip_edit'),
@@ -64,7 +67,8 @@ urlpatterns = patterns('',
     url(r'^reglament/(?P<pk>\d+)/edit/$',UpdateView.as_view(model = Reglament,template_name = 'form.html',form_class = ReglamentForm),name='reglament_edit'),
 
     #Delete 
-    url(r'^delete/(?P<pk>\d+)delete/$',delete,'apliWeb.escola.views.delete'),
+    url(r'^escola/(?P<pk>\d+)/delete/$',DeleteView.as_view(),name='escola_delete'),
+    #url(r'^delete/(?P<pk>\d+)delete/$',delete,'apliWeb.escola.views.delete'),
 
     url(r'^admin/', include(admin.site.urls)),
 ) #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
