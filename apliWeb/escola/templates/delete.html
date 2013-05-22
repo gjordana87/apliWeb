@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{%	block contenido	%}
+	<center>
+	<h3>{{ user.username }}, Segur que vols esborrar contingut de la base de dades?</h3>
+	<form method="post" action="">
+		{% csrf_token %}
+		<table>
+			{{ form.as_table }}
+		</table>
+		<input type="submit" value="Si" onclick="alert('Contingut esborrat Correctament!')"/>
+	</form>
+		<input type="button" onclick="history.back()" value="No"/>
+
+	 <center>
+
+{%	endblock	%}
