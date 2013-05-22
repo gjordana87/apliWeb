@@ -1,11 +1,9 @@
 #encoding:utf-8
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime
+from datetime import date
 from django.core.urlresolvers import reverse	
-  
-
-
+ 
 class Escole(models.Model):
 	nom = models.CharField('Nom', max_length=20, help_text='Nom Escola')
 	direccio = models.CharField('Direccio', max_length=40, help_text='Direccio de Escola')
@@ -13,11 +11,15 @@ class Escole(models.Model):
 	president = models.CharField('President', max_length=200, help_text='Nom del actual President')
 	vicepresident = models.CharField('Vicepresident', max_length=200, help_text='Nom del actual Vicepresident')
 	coordinador = models.CharField('Coordinador', max_length=200, help_text='Nom del actual Coordinador')
+	user = models.ForeignKey(User)
+	date = models.DateField(default=date.today)
 	
 	def __unicode__(self):
-		return self.nom
+		return u"%s" % self.nom
 	def get_absolute_url(self):
 		return reverse('detail_escola',kwargs={'idEscole':self.pk})
+	def get_default_user():
+		return User.objects.get(pk=1)
 
 
 class Equip(models.Model):
@@ -28,23 +30,30 @@ class Equip(models.Model):
 	possicio = models.IntegerField('Possicio', help_text='Possicio en la classificacio')
 	punts = models.IntegerField('Punts Classificacio', max_length=2)
 	fkEscole = models.ForeignKey(Escole)
+	user = models.ForeignKey(User)
+	date = models.DateField(default=date.today)
 
 	def __unicode__ (self):
-		return self.categoria
+		return u"%s" % self.categoria
 	def get_absolute_url(self):
 		return reverse('detail_equip',kwargs={'idEquip':self.pk})
+	def get_default_user():
+		return User.objects.get(pk=1)
 	
 
 class Instalacion(models.Model):
 	nom = models.CharField('Nom', max_length=20, help_text='Nom Escola')
 	direccio = models.CharField('Direccio', max_length=40, help_text='Direccio de Escola')
 	fkEscole = models.ForeignKey(Escole)
+	user = models.ForeignKey(User)
+	date = models.DateField(default=date.today)
 
 	def __unicode__(self):
-		return self.nom
+		return u"%s" % self.nom
 	def get_absolute_url(self):
 		return reverse('detail_instal',kwargs={'idInstalacions':self.pk})
-	
+	def get_default_user():
+		return User.objects.get(pk=1)
 	
 
 class Reglament(models.Model):
@@ -52,9 +61,12 @@ class Reglament(models.Model):
 	normes = models.CharField('Nom Norma', max_length=20)
 	descrip = models.TextField('Descripcio', max_length=2000, help_text='Descripcio')
 	fkEscole = models.ForeignKey(Escole)
+	user = models.ForeignKey(User)
+	date = models.DateField(default=date.today)
 	
 	def __unicode__(self):
-		return self.normes
+		return u"%s" % self.normes
 	def get_absolute_url(self):
 		return reverse('detail_regla',kwargs={'idReglament':self.pk})
-
+	def get_default_user():
+		return User.objects.get(pk=1)

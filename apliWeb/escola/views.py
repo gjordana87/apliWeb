@@ -1,8 +1,11 @@
 # Create your views here.
 from django.http import HttpResponse, Http404,HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.template import Context,RequestContext
 from django.template.loader import get_template
 from django.shortcuts import render_to_response, get_object_or_404
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.contrib import auth
 from escola.models import Escole, Reglament, Equip, Instalacion
@@ -12,30 +15,19 @@ from django.views.generic.edit import CreateView
 from django.views.generic import DetailView
 from django.views.generic import UpdateView
 
-#def logout(request):
-#    param = { 'titlehead' : "Log out",
-#	      'state': "Thanks for use Notebookcompare, Feel free to come back when you want!"}
-#    return render_to_response('base.html',param)
+class LoginRequiredMixin(object):
 
-#def register(request):
-#	template_name = 'form.html'
-#	form_class = UserCreationForm
+	@method_decorator(login_required)
+	def dispatch(self, *args, **kwargs):
+		return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
 
-#	def	form_valid(self, form):
-#		form.instance.user = self.request.user
-#		return super(UserCreationForm, self).form_valid(form)
+#class CheckIsOwnerMixin(object):
+ #   def get_object(self, *args, **kwargs):
+  #      obj = super(CheckIsOwnerMixin, self).get_object(*args, **kwargs)
+  #      if not obj.user == self.request.user:
+  #          raise PermissionDenied
+  #      return obj
 
-#def register(request):
-#   if request.method == 'POST':
-#       form = UserCreationForm(request.POST)
-#        if form.is_valid():
-#            new_user = form.save()
-#            return HttpResponseRedirect("/")
-#    else:
-#        form = UserCreationForm()
-#    return render(request, "registration/register.html", {
- #       'form': form,
-#    })
 
 
 def mainpage(request):
@@ -170,7 +162,7 @@ def detallreglament(request,idReglament):
 	return render_to_response('detallreglament.html',variables,context)
 
 
-class EscolaCreate(CreateView):
+class EscolaCreate(LoginRequiredMixin, CreateView):
 	model = Escole
 	template_name = 'form.html'
 	form_class = EscolaForm
@@ -180,7 +172,7 @@ class EscolaCreate(CreateView):
 		return super(EscolaCreate, self).form_valid(form)
 
 
-class EquipCreate(CreateView):
+class EquipCreate(LoginRequiredMixin, CreateView):
 	model = Equip
 	template_name = 'form.html'
 	form_class = EquipForm
@@ -190,7 +182,7 @@ class EquipCreate(CreateView):
 		#form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
 		return super(EquipCreate, self).form_valid(form)
 
-class ReglamentCreate(CreateView):
+class ReglamentCreate(LoginRequiredMixin, CreateView):
 	model = Reglament
 	template_name = 'form.html'
 	form_class = ReglamentForm
@@ -200,7 +192,7 @@ class ReglamentCreate(CreateView):
 		#form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
 		return super(ReglamentCreate, self).form_valid(form)
 
-class InstalacioCreate(CreateView):
+class InstalacioCreate(LoginRequiredMixin, CreateView):
 	model = Instalacion
 	template_name = 'form.html'
 	form_class = InstalacionForm

@@ -1,6 +1,8 @@
+import models
 from django.contrib import admin
 from escola.models import *
-#from escola.forms import *
+
+from escola.forms import *
 
 admin.site.register(Escole)
 admin.site.register(Equip)

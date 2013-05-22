@@ -24,13 +24,13 @@
 
 <div id="layer-0">
 <h1>Gestio Escoles de Futbol</h1>
-
+	
 {% if user.username %}
 <p>Benvingut {{ user.username }}!
-Aquí podrà gestionar i visualitzar totes les Escoles. <a href="/logout">Logout</a></p>
+Aquí podrà gestionar i visualitzar totes les Escoles. <a href="/logout/?next=/">Logout</a></p>
 {% else %}
 <p>Benvingut Usuari:
-Obligatori fer <a href="/login/">sign in</a>
+Obligatori fer <button onclick="location.href='/login/?next=/'">sign in</button>
 per gestionar Escoles.</p>
 {% endif %}
 </div>

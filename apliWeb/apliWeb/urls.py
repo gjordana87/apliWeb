@@ -20,13 +20,14 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^$', mainpage),
-    #url(r'^login/$', 'django.contrib.auth.views.login'),
-    #url(r'^logout/$', logout),
+    url(r'^login/$', 'django.contrib.auth.views.login'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout'),
     #url(r'^register/$',register),
-    url(r'^logout/$', 'django.contrib.auth.views.logout',{ 'next_page' : '/'}),
-    url(r'^login/$','django.contrib.auth.views.login'),
+    #url(r'^logout/$', 'django.contrib.auth.views.logout',{ 'next_page' : '/'}),
+    #url(r'^login/$','django.contrib.auth.views.login'),
     #url(r'^login/$',login),
-
+    #url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
+    #url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
     #escolaInstalacio
     url(r'^escola/$',escola),
         
