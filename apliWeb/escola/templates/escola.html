@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-	<button onclick="location.href='/'"> Inici</button>
+	<button onclick="location.href='/'"> Inici</button></br>
+	<cite><b>Important: {{user.username}} Si elimines una Escola creada, automaticament desapareixeran tots els equips i altres que depenguin d'aquella escola, ves en compte.</b></cite>
 
 	<center>
 		
-		<h2>Llista de Escoles de  Futbol </h2> 	
+		<h2>Llista de Escoles de  Futbol </h2>
+		 {% if user.is_authenticated %}
 	</br><button onclick="location.href='Crear'" alt="Crear nou equip" > Crear </a></button>	
+		 {% endif %}
 	
 				{% for x in escoles %}
 

@@ -8,19 +8,19 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.contrib import auth
+from models import PartitReview
 from escola.models import Escole, Reglament, Equip, Instalacion
 from forms import EscolaForm, EquipForm, ReglamentForm, InstalacionForm
-#from django.contrib.auth.forms import DeleteNewForm
 from django.views.generic.edit import CreateView
 from django.views.generic import DetailView
 from django.views.generic import UpdateView
 from django.views.generic import DeleteView
 
-class LoginRequiredMixin(object):
+class ControlLogin(object):
 
 	@method_decorator(login_required)
 	def dispatch(self, *args, **kwargs):
-		return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
+		return super(ControlLogin, self).dispatch(*args, **kwargs)
 
 #class CheckIsOwnerMixin(object):
  #   def get_object(self, *args, **kwargs):
@@ -28,9 +28,7 @@ class LoginRequiredMixin(object):
   #      if not obj.user == self.request.user:
   #          raise PermissionDenied
   #      return obj
-
-
-
+  
 def mainpage(request):
 	template = get_template('base.html')
 	variables = Context({
@@ -142,7 +140,6 @@ def detallinstall(request, idInstalacions):
 	context = RequestContext(request)
 	return render_to_response('detallinstall.html',variables,context)
 
-
 def detallreglament(request,idReglament):
 	try:
 		
@@ -162,8 +159,8 @@ def detallreglament(request,idReglament):
 	context = RequestContext(request)
 	return render_to_response('detallreglament.html',variables,context)
 
-
-class EscolaCreate(LoginRequiredMixin, CreateView):
+#Per crear entitats a la taula corresponent de la base de dades
+class EscolaCreate(ControlLogin, CreateView):
 	model = Escole
 	template_name = 'form.html'
 	form_class = EscolaForm
@@ -172,8 +169,7 @@ class EscolaCreate(LoginRequiredMixin, CreateView):
 		form.instance.user = self.request.user
 		return super(EscolaCreate, self).form_valid(form)
 
-
-class EquipCreate(LoginRequiredMixin, CreateView):
+class EquipCreate(ControlLogin, CreateView):
 	model = Equip
 	template_name = 'form.html'
 	form_class = EquipForm
@@ -183,40 +179,58 @@ class EquipCreate(LoginRequiredMixin, CreateView):
 		#form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
 		return super(EquipCreate, self).form_valid(form)
 
-class ReglamentCreate(LoginRequiredMixin, CreateView):
+class ReglamentCreate(ControlLogin, CreateView):
 	model = Reglament
 	template_name = 'form.html'
 	form_class = ReglamentForm
 
 	def	form_valid(self, form):
 		form.instance.user = self.request.user
-		#form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
 		return super(ReglamentCreate, self).form_valid(form)
 
-class InstalacioCreate(LoginRequiredMixin, CreateView):
+class InstalacioCreate(ControlLogin, CreateView):
 	model = Instalacion
 	template_name = 'form.html'
 	form_class = InstalacionForm
 
 	def	form_valid(self, form):
 		form.instance.user = self.request.user
-		#form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
 		return super(InstalacioCreate, self).form_valid(form)
 
-def EscolaDelete(DeleteView):
+#reviews
+@login_required()
+def review(request, pk):
+    equip = get_object_or_404(Equip, pk=pk)
+    equip = EquipReview(
+        rating=request.POST['rating'],
+        comment=request.POST['comment'],
+        user=request.user,
+        equip=equip)
+    review.save()
+    return HttpResponseRedirect(urlresolvers.reverse('equip_detail', args=(equip.id,)))
+
+
+#Per borrar entitats de les taules de la base de dades
+class EscolaDelete(ControlLogin, DeleteView):
 	model = Escole 
 	template_name = 'delete.html'
-	reverse_lazy('escola_delete')
-#class Delete(request,new_id):
-#	new_to_delete = get_object_or_404(New,id=new_id)
-#	if request.method == 'POST':
-#		form = DeleteNewForm(request.POST, instance=new_to_delete)
+	success_url = '/escoles'
 
-#		if form.is_valid():
-#			new_to_delete.delete()
-#			return HttpResponseRedirect("/escoles")
-#	else:
-#		form= DeleteNewForm(instance=new_to_delete)
+class EquipDelete(ControlLogin, DeleteView):
+	model = Equip 
+	template_name = 'delete.html'
+	success_url = '/equip'
 
-#	template_vars ={'form':form}
-#	return render(request, 'escola/deleteNew.html', template_vars)
+class ReglamentDelete(ControlLogin, DeleteView):
+	model = Reglament 
+	template_name = 'delete.html'
+	success_url = '/reglament'
+
+class InstalacioDelete(ControlLogin, DeleteView):
+	model = Instalacion 
+	template_name = 'delete.html'
+	success_url = '/instalacions'
+
+	
+
+

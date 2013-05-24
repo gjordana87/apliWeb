@@ -19,8 +19,3 @@ class	InstalacionForm(ModelForm):
 	class	Meta:
 		model	=	Instalacion
 		exclude	=	('user', 'date',)
-
-#class DeleteNewForm(forms.ModelForm):
-#	class Meta:
-#		model = New
-#		fields= []

@@ -67,8 +67,13 @@ urlpatterns = patterns('',
     url(r'^reglament/(?P<pk>\d+)/edit/$',UpdateView.as_view(model = Reglament,template_name = 'form.html',form_class = ReglamentForm),name='reglament_edit'),
 
     #Delete 
-    url(r'^escola/(?P<pk>\d+)/delete/$',DeleteView.as_view(),name='escola_delete'),
-    #url(r'^delete/(?P<pk>\d+)delete/$',delete,'apliWeb.escola.views.delete'),
+    #url(r'^escola/(?P<pk>\d+)/delete/$',DeleteView.as_view(),name='escola_delete'),
+    url(r'^escola/(?P<pk>\d+)/delete/$',DeleteView.as_view(model= Escole, template_name='delete.html',success_url = '/escola'),name='escola_delete'),
+    url(r'^equip/(?P<pk>\d+)/delete/$',DeleteView.as_view(model= Equip, template_name='delete.html',success_url = '/equip'),name='equip_delete'),
+    url(r'^instalacions/(?P<pk>\d+)/delete/$',DeleteView.as_view(model= Instalacion, template_name='delete.html',success_url = '/instalacions'),name='install_delete'),
+    url(r'^reglament/(?P<pk>\d+)/delete/$',DeleteView.as_view(model= Reglament, template_name='delete.html',success_url = '/reglament'),name='reglament_delete'),
+
+    url(r'^equip/(?P<pk>\d+)/reviews/create/$','escola.views.review', name='equip_create'),
 
     url(r'^admin/', include(admin.site.urls)),
 ) #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

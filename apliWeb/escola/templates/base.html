@@ -7,11 +7,11 @@
   <link	rel="stylesheet"	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jqueryui.css"	/>
 	<script	src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<script	src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<script src="js/jquery/jquery-1.7.1.min.js"></script>
+	<!--<script src="js/jquery/jquery-1.7.1.min.js"></script>
 	<script src="js/jquery/jquery.ui.core.min.js"></script>	
 	<script src="js/jquery/jquery.ui.widget.min.js"></script>
 	<script src="js/jquery/jquery.ui.position.min.js"></script>
-	<script src="js/jquery/jquery.ui.autocomplete.min.js"></script>
+	<script src="js/jquery/jquery.ui.autocomplete.min.js"></script>-->
 
 	<link rel="stylesheet" href="js/jquery/smoothness/jquery-ui-1.8.16.custom.css"/>
   	<title>{% block titulo %}{{ titlehead}}{% endblock%}</title>
@@ -20,17 +20,15 @@
   </head>
 
 <body >
-
-
 <div id="layer-0">
 <h1>Gestio Escoles de Futbol</h1>
 	
 {% if user.username %}
 <p>Benvingut {{ user.username }}!
-Aquí podrà gestionar i visualitzar totes les Escoles. <a href="/logout/?next=/">Logout</a></p>
+Aquí podrà gestionar i visualitzar totes les Escoles. <button onclick="location.href='/logout/?next=/'">Logout</button></p>
 {% else %}
 <p>Benvingut Usuari:
-Obligatori fer <button onclick="location.href='/login/?next=/'">sign in</button>
+Obligatori fer <button onclick="location.href='/login/?next=/login.html'">sign in</button>
 per gestionar Escoles.</p>
 {% endif %}
 </div>
@@ -54,6 +52,7 @@ per gestionar Escoles.</p>
 <h2> Fer Login per Entrar a l'aplicatiu </h2>
 <b> Aquest aplicatiu permet veure en detall informacio sobre les escoles de futbol registrades de tota la Provincia de Lleida.</b>
 </br><b> En el menu superior podreu veure amb més detall les opcions que té aquesta app.</b>
+<br><br><b>Nomes els usuaris registrats correctament podran editar , crear i esborrar contingut de l'aplicatiu</b>
 </center>
 </div>
 {%endblock%}

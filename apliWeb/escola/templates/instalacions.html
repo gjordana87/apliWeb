@@ -6,11 +6,13 @@
 <center>
 
 <h3>Llista de instal·lacions </h3>
+	{% if user.is_authenticated %}
 	</br><button onclick="location.href='Crear'" > Agregar Instalacio </button>
+	{% endif %}
 		{% for x in instalacions %}
 
 		<table>
-		<tr><td><b>{{ x.nom }} :</b></td><td><a href="/detallinstall/{{x.id}}">Veure detalls de les instal·lacions </a></td></tr>
+		<tr><td><b>{{ x.nom }} :</b></td><td><a href="/detallinstall/{{x.id}}" class="myButton">Veure detalls de les instal·lacions </a></td></tr>
 		
 		</table>
 		

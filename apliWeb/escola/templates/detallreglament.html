@@ -8,16 +8,21 @@
 
 <h2>{{numnorma}}. {{normes}}</h2>
 
+{% if user.is_authenticated %}
+
 </br><button onclick="location.href='/reglament/{{idReglament}}/edit/'" > Editar Reglament</button>
+{% endif %}
 <table>
 		<tr><td><b>Descripció:</b></td><td>{{descripcio}}</td></tr>
 		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>
 
 
-		</table>
+		
 </table>		
-		
-		
+
+{% if user.is_authenticated %}		
+<button onclick="location.href='/reglament/{{idReglament}}/delete'">Delete</button>
+{% endif %}
 </center>
 
 

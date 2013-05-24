@@ -6,7 +6,9 @@
 
 	<center>
 		<h3>Reglament intern </h3>
+		{% if user.is_authenticated %}
 	</br><button onclick="location.href='Crear'" > Agregar Reglament </button>
+		{% endif %}
 		{% for x in reglament %}
 		<table>
 		<tr><td><b>{{x.numnorma}}.{{x.normes }} :</b></td><td><a href="/detallreglament/{{x.id}}" class="myButton"> Detalls</a></td></tr>

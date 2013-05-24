@@ -5,8 +5,11 @@
 <button onclick="location.href='/'"> Inici</button>
 <center>
 	<h3>Detalls Intal·lació {{nom}}</h3>
-		
+
+	{% if user.is_authenticated %}	
 	</br><button onclick="location.href='/escola/{{idInstalacions}}/edit/'"> Editar Instalacio</button>
+	{% endif %}
+
 		<table>
 		<tr><td><b>Nom :</b></td><td>{{nom}}</td></tr>
 		<tr><td><b>Direcció:</b></td><td>{{direccio}}</td></tr>
@@ -14,6 +17,9 @@
 		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>
 
 		</table>
-	
+			{% if user.is_authenticated %}	
+
+	<button onclick="location.href='/instalacions/{{idInstalacions}}/delete'">Delete</button>
+		{% endif %}
 </center>
 {% endblock %}

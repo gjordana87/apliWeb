@@ -6,7 +6,10 @@
 	
 	<center>
 <h3>Detalls equip {{categoria}} </h3>
+{% if user.is_authenticated %}
 </br><button onclick="location.href='/equip/{{idEquip}}/edit/'" > Editar Equip </button>
+
+{% endif %}
 		
 		<table>
 		<tr><td><b>Nom Equip :</b></td><td>{{categoria}}</td></tr>
@@ -17,9 +20,38 @@
 		<tr><td><b>Imatge :</b></td><td><img src="{{imatge}}"/></td></tr>
 	
 		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>
+
+		<h2>Reviews</h2>
+	<ul>
+    {% for review in equip.Partitreview_set.all %}
+        <li>
+            <p>{{ review.rating }} star{{ review.rating|pluralize }}</p>
+            <p>{{ review.comment }}</p>
+            <p>Created by {{ review.user }} on {{ review.date }}</p>
+        </li>
+    {% endfor %}
+	</ul>
+
 		
 
 		</table>
+		{% if user.is_authenticated %}
+		<button onclick="location.href='/equip/{{idEquip}}/delete'">Delete</button>
+		{% endif %}
+
+<h3> Afegir comentari </h3>
+<form action="" method="post">
+    {% csrf_token %}
+    Message: <textarea name="comment" id="comment" rows="4"></textarea>
+    <p>Rating:</p>
+    <p>
+    {% for rate in RATING_CHOICES %}
+        <input type="radio" name="rating" id="rating{{ forloop.counter }}" value="{{ rate.1 }}" />
+        <label for="choice{{ forloop.counter }}">{{ rate.1 }} star{{ rate.0|pluralize }}</label><br />
+    {% endfor %}
+    </p>
+    <input type="submit" value="Review" />
+</form>
 
 	<script > 
 	$(function()	{
@@ -31,7 +63,6 @@
 	</script>
 
 
-Cercar:<input type="text" id="id_escoles">		
 </center>
 
 
