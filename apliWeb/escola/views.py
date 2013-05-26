@@ -1,20 +1,22 @@
 # Create your views here.
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.core import urlresolvers
 from django.core.exceptions import PermissionDenied
 from django.template import Context,RequestContext
 from django.template.loader import get_template
 from django.shortcuts import render_to_response, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
+from rest_framework import generics, permissions
 from django.contrib import auth
-from models import PartitReview
 from escola.models import Escole, Reglament, Equip, Instalacion
 from forms import EscolaForm, EquipForm, ReglamentForm, InstalacionForm
 from django.views.generic.edit import CreateView
 from django.views.generic import DetailView
 from django.views.generic import UpdateView
 from django.views.generic import DeleteView
+from serializers import EscolaSerializer, EquipSerializer, ReglamentSerializer, InstalacioSerializer
 
 class ControlLogin(object):
 
@@ -22,12 +24,12 @@ class ControlLogin(object):
 	def dispatch(self, *args, **kwargs):
 		return super(ControlLogin, self).dispatch(*args, **kwargs)
 
-#class CheckIsOwnerMixin(object):
- #   def get_object(self, *args, **kwargs):
-  #      obj = super(CheckIsOwnerMixin, self).get_object(*args, **kwargs)
-  #      if not obj.user == self.request.user:
-  #          raise PermissionDenied
-  #      return obj
+class CheckIsOwnerMixin(object):
+	def get_object(self, *args, **kwargs):
+		obj = super(CheckIsOwnerMixin, self).get_object(*args, **kwargs)
+		if not obj.user == self.request.user:
+			raise PermissionDenied
+		return obj
   
 def mainpage(request):
 	template = get_template('base.html')
@@ -176,7 +178,6 @@ class EquipCreate(ControlLogin, CreateView):
 
 	def	form_valid(self, form):
 		form.instance.user = self.request.user
-		#form.instance.Escola = Escola.objects.get(id=self.kwargs['pk'])
 		return super(EquipCreate, self).form_valid(form)
 
 class ReglamentCreate(ControlLogin, CreateView):
@@ -231,6 +232,38 @@ class InstalacioDelete(ControlLogin, DeleteView):
 	template_name = 'delete.html'
 	success_url = '/instalacions'
 
-	
+
+### RESTful API views ###
+class APIEscolaList(generics.ListCreateAPIView):
+	model = Escole
+	serializer_class = EscolaSerializer
+
+class APIEscolaDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Escole
+	serializer_class = EscolaSerializer
 
 
+class APIEquipDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Equip
+	serializer_class = EquipSerializer
+
+class APIEquipList(generics.ListCreateAPIView):
+	model = Equip
+	serializer_class = EquipSerializer
+
+class APIReglamentDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Reglament
+	serializer_class = ReglamentSerializer
+
+class APIReglamentList(generics.ListCreateAPIView):
+	model = Reglament
+	serializer_class = ReglamentSerializer
+
+
+class APIInstalacioDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Instalacion
+	serializer_class = InstalacioSerializer
+
+class APIInstalacioList(generics.ListCreateAPIView):
+	model = Instalacion
+	serializer_class = InstalacioSerializer

@@ -8,6 +8,8 @@ admin.site.register(Escole)
 admin.site.register(Equip)
 admin.site.register(Instalacion)
 admin.site.register(Reglament)
+#admin.site.register(Review)
+#admin.site.register(PartitReview)
 
 #forms
 #admin.site.register(loginForm)

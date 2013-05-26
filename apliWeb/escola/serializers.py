@@ -1,30 +1,39 @@
 from rest_framework.fields import CharField
 from rest_framework.relations import HyperlinkedRelatedField, HyperlinkedIdentityField
 from rest_framework.serializers import HyperlinkedModelSerializer
-from models import Restaurant, Dish, RestaurantReview
+from models import Escole, Equip, Reglament, Instalacion
+from django.db import IntegrityError
+
 
 class EscolaSerializer(HyperlinkedModelSerializer):
     url = HyperlinkedIdentityField(view_name='escola-detail')
-    equip = HyperlinkedRelatedField(many=True, read_only=True, view_name='equip-detail')
-    restaurantreview_set = HyperlinkedRelatedField(many=True, read_only=True, view_name='ew-detail')
     user = CharField(read_only=True)
     class Meta:
-        model = Restaurant
-        fields = ('url', 'name', 'street', 'number', 'city', 'zipCode', 'stateOrProvince',
-                  'country', 'telephone', 'web', 'user', 'date', 'dishes', 'restaurantreview_set')
+        model = Escole
+        fields = ('url','nom', 'direccio', 'telf', 'president', 'vicepresident', 'coordinador', 'user')
 
-class DishSerializer(HyperlinkedModelSerializer):
-    url = HyperlinkedIdentityField(view_name='myrestaurants:dish-detail')
-    restaurant = HyperlinkedRelatedField(view_name='myrestaurants:restaurant-detail')
+class EquipSerializer(HyperlinkedModelSerializer):
+    url = HyperlinkedIdentityField(view_name='equip-detail')
+    escola= HyperlinkedRelatedField(many=True, read_only=True, view_name='escola-detail')
     user = CharField(read_only=True)
     class Meta:
-        model = Dish
-        fields = ('url', 'name', 'description', 'price', 'image', 'user', 'date', 'restaurant')
+        model = Equip
+        fields = ('url', 'categoria', 'numjug', 'entrenador', 'possicio', 'punts', 'user', 'fkEscole' )
 
-class RestaurantReviewSerializer(HyperlinkedModelSerializer):
-    url = HyperlinkedIdentityField(view_name='myrestaurants:restaurantreview-detail')
-    restaurant = HyperlinkedRelatedField(view_name='myrestaurants:restaurant-detail')
+class ReglamentSerializer(HyperlinkedModelSerializer):
+    url = HyperlinkedIdentityField(view_name='reglament-detail')
+    escola = HyperlinkedRelatedField(many=True, read_only=True, view_name='escola-detail')
     user = CharField(read_only=True)
     class Meta:
-        model = RestaurantReview
-        fields = ('url', 'rating', 'comment', 'user', 'date', 'restaurant')
+        model = Reglament
+        fields = ('url', 'numnorma', 'normes', 'descrip', 'user','fkEscole' )
+
+class InstalacioSerializer(HyperlinkedModelSerializer):
+    url = HyperlinkedIdentityField(view_name='instalacio-detail')
+    escola = HyperlinkedRelatedField(many=True, read_only=True, view_name='escola-detail')
+    user = CharField(read_only=True)
+    class Meta:
+        model = Instalacion
+        fields = ('url', 'nom', 'direccio',  'user' )
+
+
