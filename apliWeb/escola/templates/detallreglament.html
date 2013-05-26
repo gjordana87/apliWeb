@@ -11,22 +11,14 @@
 {% if user.is_authenticated %}
 
 </br><button onclick="location.href='/reglament/{{idReglament}}/edit/'" > Editar Reglament</button>
+<button onclick="location.href='/reglament/{{idReglament}}/delete'">Esborrar</button>
+
 {% endif %}
 <table>
+		<tr><td><b>Num Norma:</b></td><td>{{numnorma}}</td></tr>
+		<tr><td><b>Nom Norma:</b></td><td>{{normes}}</td></tr>
 		<tr><td><b>Descripció:</b></td><td>{{descripcio}}</td></tr>
-		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>
-
-
-		
+		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>		
 </table>		
-
-{% if user.is_authenticated %}		
-<button onclick="location.href='/reglament/{{idReglament}}/delete'">Delete</button>
-{% endif %}
 </center>
-
-
- 
-
-
 {% endblock %}

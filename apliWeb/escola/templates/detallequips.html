@@ -8,7 +8,7 @@
 <h3>Detalls equip {{categoria}} </h3>
 {% if user.is_authenticated %}
 </br><button onclick="location.href='/equip/{{idEquip}}/edit/'" > Editar Equip </button>
-
+		<button onclick="location.href='/equip/{{idEquip}}/delete'">Esborrar</button>
 {% endif %}
 		
 		<table>
@@ -22,9 +22,6 @@
 		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>	
 
 		</table>
-		{% if user.is_authenticated %}
-		<button onclick="location.href='/equip/{{idEquip}}/delete'">Delete</button>
-		{% endif %}
 
 </center>
 

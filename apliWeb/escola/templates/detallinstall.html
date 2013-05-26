@@ -8,6 +8,8 @@
 
 	{% if user.is_authenticated %}	
 	</br><button onclick="location.href='/escola/{{idInstalacions}}/edit/'"> Editar Instalacio</button>
+		<button onclick="location.href='/instalacions/{{idInstalacions}}/delete'">Esborrar</button>
+
 	{% endif %}
 
 		<table>
@@ -17,9 +19,5 @@
 		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>
 
 		</table>
-			{% if user.is_authenticated %}	
-
-	<button onclick="location.href='/instalacions/{{idInstalacions}}/delete'">Delete</button>
-		{% endif %}
 </center>
 {% endblock %}

@@ -49,8 +49,8 @@ urlpatterns = patterns('',
     url(r'^instalacions/Crear/$',InstalacioCreate.as_view(),name='instalacio_create'),
        
     #   Edit    
-    url(r'^escola/(?P<pk>\d+)/edit/$',UpdateView.as_view(model = Escole,template_name = 'form.html',form_class = EscolaForm),name='escola_edit'),
-    url(r'^equip/(?P<pk>\d+)/edit/$',UpdateView.as_view(model = Equip,template_name = 'form.html',form_class = EquipForm),name='equip_edit'),
+    url(r'^escola/(?P<pk>\d+)/edit/$',login_required(UpdateView.as_view(model = Escole,template_name = 'form.html',form_class = EscolaForm)),name='escola_edit'),
+    url(r'^equip/(?P<pk>\d+)/edit/$',login_required(UpdateView.as_view(model = Equip,template_name = 'form.html',form_class = EquipForm)),name='equip_edit'),
     url(r'^instalacions/(?P<pk>\d+)/edit/$',UpdateView.as_view(model = Instalacion,template_name = 'form.html',form_class = InstalacionForm),name='install_edit'),
     url(r'^reglament/(?P<pk>\d+)/edit/$',UpdateView.as_view(model = Reglament,template_name = 'form.html',form_class = ReglamentForm),name='reglament_edit'),
 
