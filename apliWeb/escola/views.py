@@ -199,16 +199,16 @@ class InstalacioCreate(ControlLogin, CreateView):
 		return super(InstalacioCreate, self).form_valid(form)
 
 #reviews
-@login_required()
-def review(request, pk):
-    equip = get_object_or_404(Equip, pk=pk)
-    equip = EquipReview(
-        rating=request.POST['rating'],
-        comment=request.POST['comment'],
-        user=request.user,
-        equip=equip)
-    review.save()
-    return HttpResponseRedirect(urlresolvers.reverse('equip_detail', args=(equip.id,)))
+#@login_required()
+#def review(request, pk):
+#    equip = get_object_or_404(Equip, pk=pk)
+#    equip = EquipReview(
+#        rating=request.POST['rating'],
+#        comment=request.POST['comment'],
+#        user=request.user,
+#        equip=equip)
+#    review.save()
+#    return HttpResponseRedirect(urlresolvers.reverse('equip_detail', args=(equip.id,)))
 
 
 #Per borrar entitats de les taules de la base de dades

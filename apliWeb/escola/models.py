@@ -3,7 +3,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
 from django.core.urlresolvers import reverse
-from django.db import IntegrityError
  
 class Escole(models.Model):
 	nom = models.CharField('Nom', max_length=20, help_text='Nom Escola')
@@ -30,7 +29,7 @@ class Equip(models.Model):
 	imatge = models.ImageField(upload_to='static/files', verbose_name='Imatge')
 	possicio = models.IntegerField('Possicio', help_text='Possicio en la classificacio')
 	punts = models.IntegerField('Punts Classificacio', max_length=2)
-	fkEscole = models.ForeignKey(Escole, null=True)
+	fkEscole = models.ForeignKey(Escole, null = False)
 	user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 	date = models.DateField(default=date.today)
 
@@ -45,7 +44,7 @@ class Equip(models.Model):
 class Instalacion(models.Model):
 	nom = models.CharField('Nom', max_length=20, help_text='Nom Escola')
 	direccio = models.CharField('Direccio', max_length=40, help_text='Direccio de Escola')
-	fkEscole = models.ForeignKey(Escole, null=True)
+	fkEscole = models.ForeignKey(Escole, null=False)
 	user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 	date = models.DateField(default=date.today)
 
@@ -61,7 +60,7 @@ class Reglament(models.Model):
 	numnorma = models.IntegerField('Norma', max_length=2)
 	normes = models.CharField('Nom Norma', max_length=20)
 	descrip = models.TextField('Descripcio', max_length=2000, help_text='Descripcio')
-	fkEscole = models.ForeignKey(Escole, null=True)
+	fkEscole = models.ForeignKey(Escole, null=False)
 	user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 	date = models.DateField(default=date.today)
 	

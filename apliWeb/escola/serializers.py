@@ -14,23 +14,23 @@ class EscolaSerializer(HyperlinkedModelSerializer):
 
 class EquipSerializer(HyperlinkedModelSerializer):
     url = HyperlinkedIdentityField(view_name='equip-detail')
-    escola= HyperlinkedRelatedField(many=True, read_only=True, view_name='escola-detail')
+#    fkEscole = HyperlinkedRelatedField(many=True, read_only=True, view_name='escola-detail')
     user = CharField(read_only=True)
     class Meta:
         model = Equip
-        fields = ('url', 'categoria', 'numjug', 'entrenador', 'possicio', 'punts', 'user', 'fkEscole' )
+        fields = ('url', 'categoria', 'numjug', 'entrenador', 'possicio', 'punts', 'user')
 
 class ReglamentSerializer(HyperlinkedModelSerializer):
     url = HyperlinkedIdentityField(view_name='reglament-detail')
-    escola = HyperlinkedRelatedField(many=True, read_only=True, view_name='escola-detail')
+    #fkEscole = HyperlinkedRelatedField(many=True, read_only=True, view_name='escola-detail')
     user = CharField(read_only=True)
     class Meta:
         model = Reglament
-        fields = ('url', 'numnorma', 'normes', 'descrip', 'user','fkEscole' )
+        fields = ('url', 'numnorma', 'normes', 'descrip', 'user' )
 
 class InstalacioSerializer(HyperlinkedModelSerializer):
     url = HyperlinkedIdentityField(view_name='instalacio-detail')
-    escola = HyperlinkedRelatedField(many=True, read_only=True, view_name='escola-detail')
+    #fkEscole = HyperlinkedRelatedField(many=True, read_only=True, view_name='escola-detail')
     user = CharField(read_only=True)
     class Meta:
         model = Instalacion
