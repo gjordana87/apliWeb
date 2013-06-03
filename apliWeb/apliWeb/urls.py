@@ -37,6 +37,8 @@ urlpatterns = patterns('',
     
     url(r'^detallescoles/(?P<idEscole>\w+)/',detallescoles, name='detail_escola'),
     url(r'^detallequips/(?P<idEquip>\w+)/',detallequips, name='detail_equip'),
+    url(r'^equip/(?P<idEquip>\w+)/review',detallequips, name='equipreview'),
+
     url(r'^detallinstall/(?P<idInstalacions>\w+)/',detallinstall, name='detail_instal'),
     url(r'^detallreglament/(?P<idReglament>\w+)/',detallreglament, name='detail_regla'),
 
@@ -60,6 +62,9 @@ urlpatterns = patterns('',
     url(r'^instalacions/(?P<pk>\d+)/delete/$',DeleteView.as_view(model= Instalacion, template_name='delete.html',success_url = '/instalacions'),name='install_delete'),
     url(r'^reglament/(?P<pk>\d+)/delete/$',DeleteView.as_view(model= Reglament, template_name='delete.html',success_url = '/reglament'),name='reglament_delete'),
 
+    url(r'^equip/(?P<pk>\d+)/reviews/create/$', Review, name='review_create'),    
+
+
     url(r'^admin/', include(admin.site.urls)),
 ) 
 
@@ -76,6 +81,8 @@ urlpatterns += patterns('',
 
     url(r'^api/instalacions/$', APIInstalacioList.as_view(), name='instalacio-list'),
     url(r'^api/instalacions/(?P<pk>\d+)/$', APIInstalacioDetail.as_view(), name='instalacio-detail'),
+
+    url(r'^api/equipreviews/(?P<pk>\d+)/$', APIEquipReviewDetail.as_view(), name='equipreview-detail'),
 
 
 

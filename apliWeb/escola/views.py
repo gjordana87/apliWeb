@@ -10,13 +10,13 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from rest_framework import generics, permissions
 from django.contrib import auth
-from escola.models import Escole, Reglament, Equip, Instalacion
+from escola.models import Escole, Reglament, Equip, Instalacion, Review
 from forms import EscolaForm, EquipForm, ReglamentForm, InstalacionForm
 from django.views.generic.edit import CreateView
 from django.views.generic import DetailView
 from django.views.generic import UpdateView
 from django.views.generic import DeleteView
-from serializers import EscolaSerializer, EquipSerializer, ReglamentSerializer, InstalacioSerializer
+from serializers import EscolaSerializer, EquipSerializer, ReglamentSerializer, InstalacioSerializer, EquipReviewSerializer
 
 class ControlLogin(object):
 
@@ -95,6 +95,7 @@ def detallescoles(request,idEscole):
             'vicepresident': escola.vicepresident,
             'coordinador': escola.coordinador,
             'idEscole': idEscole,
+
             #'detallescoles': detallescoles
 	}
 
@@ -117,6 +118,8 @@ def detallequips(request,idEquip):
 			'punts': equip.punts,
 			'escola': equip.fkEscole,
 			'detallequips': detallequips,
+			'RATING_CHOICES': Review.RATING_CHOICES,
+			
 			'idEquip': idEquip,
 	}
 	except Equip.DoesNotExist:
@@ -199,16 +202,16 @@ class InstalacioCreate(ControlLogin, CreateView):
 		return super(InstalacioCreate, self).form_valid(form)
 
 #reviews
-#@login_required()
-#def review(request, pk):
-#    equip = get_object_or_404(Equip, pk=pk)
-#    equip = EquipReview(
-#        rating=request.POST['rating'],
-#        comment=request.POST['comment'],
-#        user=request.user,
-#        equip=equip)
-#    review.save()
-#    return HttpResponseRedirect(urlresolvers.reverse('equip_detail', args=(equip.id,)))
+@login_required()
+def EquipReview(request, pk):
+    equip = get_object_or_404(Equip, pk=pk)
+    equip = EquipReview(
+        rating=request.POST['rating'],
+        comment=request.POST['comment'],
+        user=request.user,
+        equip=equip)
+    review.save()
+    return HttpResponseRedirect(urlresolvers.reverse('equip_detail', args=(equip.id,)))
 
 
 #Per borrar entitats de les taules de la base de dades
@@ -267,3 +270,8 @@ class APIInstalacioDetail(generics.RetrieveUpdateDestroyAPIView):
 class APIInstalacioList(generics.ListCreateAPIView):
 	model = Instalacion
 	serializer_class = InstalacioSerializer
+
+
+class APIEquipReviewDetail(generics.ListCreateAPIView):
+	model = Equip
+	serializer_class = EquipReviewSerializer

@@ -7,11 +7,11 @@
   <link	rel="stylesheet"	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jqueryui.css"	/>
 	<script	src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<script	src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<script src="js/jquery/jquery-1.7.1.min.js"></script>
+	<!--<script src="js/jquery/jquery-1.7.1.min.js"></script>
 	<script src="js/jquery/jquery.ui.core.min.js"></script>	
 	<script src="js/jquery/jquery.ui.widget.min.js"></script>
 	<script src="js/jquery/jquery.ui.position.min.js"></script>
-	<script src="js/jquery/jquery.ui.autocomplete.min.js"></script>
+	<script src="js/jquery/jquery.ui.autocomplete.min.js"></script>-->
 
 	<link rel="stylesheet" href="js/jquery/smoothness/jquery-ui-1.8.16.custom.css"/>
   	<title>{% block titulo %}{{ titlehead}}{% endblock%}</title>
@@ -56,6 +56,11 @@ per gestionar Escoles.</p>
 </center>
 </div>
 {%endblock%}
+{% block footer %}
+<div id="footer">
+    <p>Created by {{user}} on {{date}} </p>
+</div>
+{% endblock %}
 
 </body>
 </html>

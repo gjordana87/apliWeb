@@ -1,7 +1,7 @@
 from rest_framework.fields import CharField
 from rest_framework.relations import HyperlinkedRelatedField, HyperlinkedIdentityField
 from rest_framework.serializers import HyperlinkedModelSerializer
-from models import Escole, Equip, Reglament, Instalacion
+from models import Escole, Equip, Reglament, Instalacion, Review, EquipReview
 from django.db import IntegrityError
 
 
@@ -35,5 +35,14 @@ class InstalacioSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Instalacion
         fields = ('url', 'nom', 'direccio',  'user', 'fkEscole' )
+
+
+class EquipReviewSerializer(HyperlinkedModelSerializer):
+    url = HyperlinkedIdentityField(view_name='equipreview-detail')
+    fkEscole = HyperlinkedRelatedField(view_name='escola-detail')
+    user = CharField(read_only=True)
+    class Meta:
+        model = EquipReview
+        fields = ('url', 'rating', 'comment', 'user', 'fkEscole')
 
 

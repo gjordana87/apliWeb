@@ -9,6 +9,9 @@
 {% if user.is_authenticated %}
 </br><button onclick="location.href='/equip/{{idEquip}}/edit/'" > Editar Equip </button>
 		<button onclick="location.href='/equip/{{idEquip}}/delete'">Esborrar</button>
+		<br><button onclick="location.href='/equip/{{idEquip}}/reviews.html/'">Comentari</button>
+
+
 {% endif %}
 		
 		<table>
@@ -19,14 +22,45 @@
 		<tr><td><b>Punts :</b></td><td>{{punts}}</td></tr>
 		<tr><td><b>Imatge :</b></td><td><img src="{{imatge}}"/></td></tr>
 	
-		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>	
+		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>
+
+		<tr><td><b>Review :<b> </td><td>{{review}}
 
 		</table>
 
 </center>
+<center>
+<h2>Reviews</h2>
+<ul>
+    {% for review in Equips %}
+        <li>
+            <p>{{ review.rating }} star {{ review.rating|pluralize }}</p>
+            <p>{{ review.comment }}</p>
+            <p>Created by {{ review.user }}</p>
+        </li>
+    {% endfor %}
+</ul>
 
 
- 
+<h3>Afegir Review</h3>
+<form action="" method="post">
+    {% csrf_token %}
+    Message: <textarea name="comment" id="comment" rows="4"></textarea>
+    <p>Rating:</p>
+    <p>
+    {% for rate in RATING_CHOICES %}
+        <input type="radio" name="rating" id="rating{{ forloop.counter }}" value="{{ rate.1 }}" />
+        <label for="choice{{ forloop.counter }}">{{ rate.1 }} star{{ rate.0|pluralize }}</label><br />
+    {% endfor %}
+    </p>
+    <input type="submit" value="Review" />
+</form>
 
+</center>
+{% endblock %}
 
+{% block footer %}
+<div id="footer">
+    <p>Created by {{user}}</p>
+</div>
 {% endblock %}
