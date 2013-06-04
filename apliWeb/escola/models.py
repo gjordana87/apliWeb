@@ -78,9 +78,8 @@ class Review(models.Model):
     comment = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     date = models.DateField(default=date.today)
+    equip= models.ForeignKey(Equip)
+    
+    #class Meta:
+    #    abstract = True
 
-    class Meta:
-        abstract = True
-
-class EquipReview(Review):
-    equip = models.ForeignKey(Equip)

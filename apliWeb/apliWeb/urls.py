@@ -62,7 +62,7 @@ urlpatterns = patterns('',
     url(r'^instalacions/(?P<pk>\d+)/delete/$',DeleteView.as_view(model= Instalacion, template_name='delete.html',success_url = '/instalacions'),name='install_delete'),
     url(r'^reglament/(?P<pk>\d+)/delete/$',DeleteView.as_view(model= Reglament, template_name='delete.html',success_url = '/reglament'),name='reglament_delete'),
 
-    url(r'^equip/(?P<pk>\d+)/reviews/create/$', Review, name='review_create'),    
+    url(r'^equip/(?P<pk>\d+)/reviews/$', Review, name='review_create'),    
 
 
     url(r'^admin/', include(admin.site.urls)),

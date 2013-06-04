@@ -108,6 +108,7 @@ def detallequips(request,idEquip):
 	try:
 
 			equip = Equip.objects.get(pk=idEquip)
+			reviews = Review.objects.get(equip=idEquip)
 			variables = {
 			'titlehead': 'Detall equip ',
 			'categoria': equip.categoria,
@@ -119,13 +120,16 @@ def detallequips(request,idEquip):
 			'escola': equip.fkEscole,
 			'detallequips': detallequips,
 			'RATING_CHOICES': Review.RATING_CHOICES,
+			'review':reviews,
 			
 			'idEquip': idEquip,
 	}
 	except Equip.DoesNotExist:
 	 raise Http404
 	context = RequestContext(request)
+	
 	return render_to_response('detallequips.html',variables, context)
+
 
 def detallinstall(request, idInstalacions):
 	try:
