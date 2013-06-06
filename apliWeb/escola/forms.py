@@ -19,3 +19,4 @@ class	InstalacionForm(ModelForm):
 	class	Meta:
 		model	=	Instalacion
 		exclude	=	('user', 'date',)
+

@@ -9,7 +9,6 @@
 {% if user.is_authenticated %}
 </br><button onclick="location.href='/equip/{{idEquip}}/edit/'" > Editar Equip </button>
 		<button onclick="location.href='/equip/{{idEquip}}/delete'">Esborrar</button>
-		<br><button onclick="location.href='/equip/{{idEquip}}/reviews.html/'">Comentari</button>
 
 
 {% endif %}
@@ -24,7 +23,6 @@
 	
 		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>
 
-		<tr><td><b>Review :<b> </td><td>{{review}}
 
 		</table>
 
@@ -43,7 +41,7 @@
 
 
 <h3>Afegir Review</h3>
-<form action="" method="post">
+<form action="../../equip/{{idEquip}}/review/" method="post">
     {% csrf_token %}
     Message: <textarea name="comment" id="comment" rows="4"></textarea>
     <p>Rating:</p>

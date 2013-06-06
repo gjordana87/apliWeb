@@ -20,71 +20,71 @@ from serializers import EscolaSerializer, EquipSerializer, ReglamentSerializer, 
 
 class ControlLogin(object):
 
-	@method_decorator(login_required)
-	def dispatch(self, *args, **kwargs):
-		return super(ControlLogin, self).dispatch(*args, **kwargs)
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ControlLogin, self).dispatch(*args, **kwargs)
 
 class CheckIsOwnerMixin(object):
-	def get_object(self, *args, **kwargs):
-		obj = super(CheckIsOwnerMixin, self).get_object(*args, **kwargs)
-		if not obj.user == self.request.user:
-			raise PermissionDenied
-		return obj
+    def get_object(self, *args, **kwargs):
+        obj = super(CheckIsOwnerMixin, self).get_object(*args, **kwargs)
+        if not obj.user == self.request.user:
+            raise PermissionDenied
+        return obj
   
 def mainpage(request):
-	template = get_template('base.html')
-	variables = Context({
-	'titlehead': 'Escola aPP',
-	'user': request.user
+    template = get_template('base.html')
+    variables = Context({
+    'titlehead': 'Escola aPP',
+    'user': request.user
 
-	})
-	output = template.render(variables)
-	return HttpResponse(output)
-	
+    })
+    output = template.render(variables)
+    return HttpResponse(output)
+    
 def escola(request):
-	escola = Escole.objects.all()
-	context = RequestContext(request)
-	variables = {
-	'titlehead': 'Escoles',
-	'escoles': escola
-	}
+    escola = Escole.objects.all()
+    context = RequestContext(request)
+    variables = {
+    'titlehead': 'Escoles',
+    'escoles': escola
+    }
 
-	return render_to_response('escola.html',variables, context)
+    return render_to_response('escola.html',variables, context)
 
 def reglament(request):
-	reglament = Reglament.objects.all()
-	context = RequestContext(request)
-	variables = {
-	'titlehead': 'Reglaments',
-	'reglament': reglament
-	}
+    reglament = Reglament.objects.all()
+    context = RequestContext(request)
+    variables = {
+    'titlehead': 'Reglaments',
+    'reglament': reglament
+    }
 
-	return render_to_response('reglament.html',variables, context)
+    return render_to_response('reglament.html',variables, context)
 
 def equip(request):
-	equip = Equip.objects.all()
-	context = RequestContext(request)
-	escola = Escole.objects.filter(equip=equip)
-	variables = {
-	'titlehead': 'Equips',	
-	'equips' : equip
-	
+    equip = Equip.objects.all()
+    context = RequestContext(request)
+    escola = Escole.objects.filter(equip=equip)
+    variables = {
+    'titlehead': 'Equips',  
+    'equips' : equip
+    
     }
-	return render_to_response('equip.html',variables,context)
+    return render_to_response('equip.html',variables,context)
 
 def instalacions(request):
-	instalacions = Instalacion.objects.all()
-	context = RequestContext(request)
-	variables = {
-	'titlehead': 'Instalacions',	
-	'instalacions': instalacions
+    instalacions = Instalacion.objects.all()
+    context = RequestContext(request)
+    variables = {
+    'titlehead': 'Instalacions',    
+    'instalacions': instalacions
     }
-	return render_to_response('instalacions.html', variables,context)
+    return render_to_response('instalacions.html', variables,context)
 
 
 
 def detallescoles(request,idEscole):
-	try:
+    try:
             escola = Escole.objects.get(pk=idEscole)
             variables = {
             'titlehead':"Detall de escoles",
@@ -97,185 +97,182 @@ def detallescoles(request,idEscole):
             'idEscole': idEscole,
 
             #'detallescoles': detallescoles
-	}
+    }
 
-	except Escole.DoesNotExist:
-	 raise Http404
-	context = RequestContext(request)
-	return render_to_response('detallescoles.html', variables, context)
+    except Escole.DoesNotExist:
+     raise Http404
+    context = RequestContext(request)
+    return render_to_response('detallescoles.html', variables, context)
 
 def detallequips(request,idEquip):
-	try:
+    try:
 
-			equip = Equip.objects.get(pk=idEquip)
-			reviews = Review.objects.get(equip=idEquip)
-			variables = {
-			'titlehead': 'Detall equip ',
-			'categoria': equip.categoria,
-			'numjug': equip.numjug,
-			'entrenador': equip.entrenador,
-			'imatge': equip.imatge,
-			'possicio': equip.possicio,
-			'punts': equip.punts,
-			'escola': equip.fkEscole,
-			'detallequips': detallequips,
-			'RATING_CHOICES': Review.RATING_CHOICES,
-			'review':reviews,
-			
-			'idEquip': idEquip,
-	}
-	except Equip.DoesNotExist:
-	 raise Http404
-	context = RequestContext(request)
-	
-	return render_to_response('detallequips.html',variables, context)
+            equip = Equip.objects.get(pk=idEquip)
+            #review = Review.objects.get(pk=idEquip)
+            variables = {
+            'titlehead': 'Detall equip ',
+            'categoria': equip.categoria,
+            'numjug': equip.numjug,
+            'entrenador': equip.entrenador,
+            'imatge': equip.imatge,
+            'possicio': equip.possicio,
+            'punts': equip.punts,
+            'escola': equip.fkEscole,
+            'detallequips': detallequips,
+            'RATING_CHOICES': Review.RATING_CHOICES,
+            #'review':review,
+            'idEquip': idEquip,
+    }
+    except Equip.DoesNotExist:
+     raise Http404
+    context = RequestContext(request)   
+    return render_to_response('detallequips.html',variables, context)
 
 
 def detallinstall(request, idInstalacions):
-	try:
-		
-			instalacion = Instalacion.objects.get(pk=idInstalacions)
-			variables = {
-			'titlehead': 'Detall de les Instalacions',
-			'nom': instalacion.nom,
-			'direccio': instalacion.direccio,
-			'escola': instalacion.fkEscole,
-			'idInstalacions': idInstalacions,
-			#'detallinstall': detallinstall,
-	}
+    try:
+        
+            instalacion = Instalacion.objects.get(pk=idInstalacions)
+            variables = {
+            'titlehead': 'Detall de les Instalacions',
+            'nom': instalacion.nom,
+            'direccio': instalacion.direccio,
+            'escola': instalacion.fkEscole,
+            'idInstalacions': idInstalacions,
+            #'detallinstall': detallinstall,
+    }
 
-	except Instalacion.DoesNotExist:
-	 raise Http404
-	context = RequestContext(request)
-	return render_to_response('detallinstall.html',variables,context)
+    except Instalacion.DoesNotExist:
+     raise Http404
+    context = RequestContext(request)
+    return render_to_response('detallinstall.html',variables,context)
 
 def detallreglament(request,idReglament):
-	try:
-		
-			reglament = Reglament.objects.get(pk=idReglament)
-			variables = {
-			'titlehead': 'Detall de les Instalacions',
-			'numnorma': reglament.numnorma,
-			'normes': reglament.normes,
-			'descripcio': reglament.descrip,
-			'escola': reglament.fkEscole,
-			'idReglament': idReglament,	
-			#'detallreglament': detallreglament,
-	}
+    try:
+        
+            reglament = Reglament.objects.get(pk=idReglament)
+            variables = {
+            'titlehead': 'Detall de les Instalacions',
+            'numnorma': reglament.numnorma,
+            'normes': reglament.normes,
+            'descripcio': reglament.descrip,
+            'escola': reglament.fkEscole,
+            'idReglament': idReglament, 
+            'detallreglament': detallreglament,
+    }
 
-	except Instalacion.DoesNotExist:
-	 raise Http404
-	context = RequestContext(request)
-	return render_to_response('detallreglament.html',variables,context)
+    except Instalacion.DoesNotExist:
+     raise Http404
+    context = RequestContext(request)
+    return render_to_response('detallreglament.html',variables,context)
 
 #Per crear entitats a la taula corresponent de la base de dades
 class EscolaCreate(ControlLogin, CreateView):
-	model = Escole
-	template_name = 'form.html'
-	form_class = EscolaForm
-	
-	def	form_valid(self, form):
-		form.instance.user = self.request.user
-		return super(EscolaCreate, self).form_valid(form)
+    model = Escole
+    template_name = 'form.html'
+    form_class = EscolaForm
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(EscolaCreate, self).form_valid(form)
 
 class EquipCreate(ControlLogin, CreateView):
-	model = Equip
-	template_name = 'form.html'
-	form_class = EquipForm
+    model = Equip
+    template_name = 'form.html'
+    form_class = EquipForm
 
-	def	form_valid(self, form):
-		form.instance.user = self.request.user
-		return super(EquipCreate, self).form_valid(form)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(EquipCreate, self).form_valid(form)
 
 class ReglamentCreate(ControlLogin, CreateView):
-	model = Reglament
-	template_name = 'form.html'
-	form_class = ReglamentForm
+    model = Reglament
+    template_name = 'form.html'
+    form_class = ReglamentForm
 
-	def	form_valid(self, form):
-		form.instance.user = self.request.user
-		return super(ReglamentCreate, self).form_valid(form)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(ReglamentCreate, self).form_valid(form)
 
 class InstalacioCreate(ControlLogin, CreateView):
-	model = Instalacion
-	template_name = 'form.html'
-	form_class = InstalacionForm
+    model = Instalacion
+    template_name = 'form.html'
+    form_class = InstalacionForm
 
-	def	form_valid(self, form):
-		form.instance.user = self.request.user
-		return super(InstalacioCreate, self).form_valid(form)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(InstalacioCreate, self).form_valid(form)
 
-#reviews
 @login_required()
-def EquipReview(request, pk):
+def review(request, pk):
     equip = get_object_or_404(Equip, pk=pk)
-    equip = EquipReview(
-        rating=request.POST['rating'],
-        comment=request.POST['comment'],
+    equip = Review(
+        rating=request.POST['rating'], comment=request.POST['comment'],
         user=request.user,
         equip=equip)
-    review.save()
-    return HttpResponseRedirect(urlresolvers.reverse('equip_detail', args=(equip.id,)))
+    equip.save()
+    print jajaja
+    return render_to_response('detallequips.html')
 
-
-#Per borrar entitats de les taules de la base de dades
+#Per borar entitats de les taules de la base de dades
 class EscolaDelete(ControlLogin, DeleteView):
-	model = Escole 
-	template_name = 'delete.html'
-	success_url = '/escoles'
+    model = Escole 
+    template_name = 'delete.html'
+    success_url = '/escoles'
 
 class EquipDelete(ControlLogin, DeleteView):
-	model = Equip 
-	template_name = 'delete.html'
-	success_url = '/equip'
+    model = Equip 
+    template_name = 'delete.html'
+    success_url = '/equip'
 
 class ReglamentDelete(ControlLogin, DeleteView):
-	model = Reglament 
-	template_name = 'delete.html'
-	success_url = '/reglament'
+    model = Reglament 
+    template_name = 'delete.html'
+    success_url = '/reglament'
 
 class InstalacioDelete(ControlLogin, DeleteView):
-	model = Instalacion 
-	template_name = 'delete.html'
-	success_url = '/instalacions'
+    model = Instalacion 
+    template_name = 'delete.html'
+    success_url = '/instalacions'
+
 
 
 ### RESTful API views ###
 class APIEscolaList(generics.ListCreateAPIView):
-	model = Escole
-	serializer_class = EscolaSerializer
+    model = Escole
+    serializer_class = EscolaSerializer
 
 class APIEscolaDetail(generics.RetrieveUpdateDestroyAPIView):
-	model = Escole
-	serializer_class = EscolaSerializer
+    model = Escole
+    serializer_class = EscolaSerializer
 
 
 class APIEquipDetail(generics.RetrieveUpdateDestroyAPIView):
-	model = Equip
-	serializer_class = EquipSerializer
+    model = Equip
+    serializer_class = EquipSerializer
 
 class APIEquipList(generics.ListCreateAPIView):
-	model = Equip
-	serializer_class = EquipSerializer
+    model = Equip
+    serializer_class = EquipSerializer
 
 class APIReglamentDetail(generics.RetrieveUpdateDestroyAPIView):
-	model = Reglament
-	serializer_class = ReglamentSerializer
+    model = Reglament
+    serializer_class = ReglamentSerializer
 
 class APIReglamentList(generics.ListCreateAPIView):
-	model = Reglament
-	serializer_class = ReglamentSerializer
+    model = Reglament
+    serializer_class = ReglamentSerializer
 
 
 class APIInstalacioDetail(generics.RetrieveUpdateDestroyAPIView):
-	model = Instalacion
-	serializer_class = InstalacioSerializer
+    model = Instalacion
+    serializer_class = InstalacioSerializer
 
 class APIInstalacioList(generics.ListCreateAPIView):
-	model = Instalacion
-	serializer_class = InstalacioSerializer
+    model = Instalacion
+    serializer_class = InstalacioSerializer
 
 
 class APIEquipReviewDetail(generics.ListCreateAPIView):
-	model = Equip
-	serializer_class = EquipReviewSerializer
+    model = Equip
+    serializer_class = EquipReviewSerializer

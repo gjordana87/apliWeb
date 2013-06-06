@@ -45,7 +45,7 @@ urlpatterns = patterns('',
 
 #web 2.0
    # Crear Escola, equip, reglament, instalacions 
-    url(r'^escola/Crear/$',EscolaCreate.as_view(),  name='escola_create'),
+    url(r'^escola/Crear/$',EscolaCreate.as_view(),name='escola_create'),
     url(r'^equip/Crear/$',EquipCreate.as_view(),name='equip_create'),
     url(r'^reglament/Crear/$',ReglamentCreate.as_view(),name='reglament_create'),
     url(r'^instalacions/Crear/$',InstalacioCreate.as_view(),name='instalacio_create'),
@@ -62,7 +62,9 @@ urlpatterns = patterns('',
     url(r'^instalacions/(?P<pk>\d+)/delete/$',DeleteView.as_view(model= Instalacion, template_name='delete.html',success_url = '/instalacions'),name='install_delete'),
     url(r'^reglament/(?P<pk>\d+)/delete/$',DeleteView.as_view(model= Reglament, template_name='delete.html',success_url = '/reglament'),name='reglament_delete'),
 
-    url(r'^equip/(?P<pk>\d+)/reviews/$', Review, name='review_create'),    
+    #review
+    url(r'^equip/(?P<pk>\d+)/review/$', 'equip.views.review', name='review_create'), 
+    
 
 
     url(r'^admin/', include(admin.site.urls)),
