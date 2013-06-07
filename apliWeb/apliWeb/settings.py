@@ -131,7 +131,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'escola',
     'rest_framework',
-    'south',
+    #'south',
 )
 
 # A sample logging configuration. The only tangible logging

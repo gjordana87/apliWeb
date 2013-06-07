@@ -41,7 +41,7 @@
 
 
 <h3>Afegir Review</h3>
-<form action="../../equip/{{idEquip}}/review/" method="post">
+<form action="{% url 'review_create' equip.id %}" method="post">
     {% csrf_token %}
     Message: <textarea name="comment" id="comment" rows="4"></textarea>
     <p>Rating:</p>

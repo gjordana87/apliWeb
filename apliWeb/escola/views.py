@@ -10,7 +10,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from rest_framework import generics, permissions
 from django.contrib import auth
-from escola.models import Escole, Reglament, Equip, Instalacion, Review
+from escola.models import Escole, Reglament, Equip, Instalacion, Review, EquipReview
 from forms import EscolaForm, EquipForm, ReglamentForm, InstalacionForm
 from django.views.generic.edit import CreateView
 from django.views.generic import DetailView
@@ -108,7 +108,7 @@ def detallequips(request,idEquip):
     try:
 
             equip = Equip.objects.get(pk=idEquip)
-            #review = Review.objects.get(pk=idEquip)
+            review = equip.equipreview_set.all()
             variables = {
             'titlehead': 'Detall equip ',
             'categoria': equip.categoria,
@@ -120,8 +120,9 @@ def detallequips(request,idEquip):
             'escola': equip.fkEscole,
             'detallequips': detallequips,
             'RATING_CHOICES': Review.RATING_CHOICES,
-            #'review':review,
+            'review':review,
             'idEquip': idEquip,
+            'equip': equip,
     }
     except Equip.DoesNotExist:
      raise Http404
@@ -206,13 +207,12 @@ class InstalacioCreate(ControlLogin, CreateView):
 @login_required()
 def review(request, pk):
     equip = get_object_or_404(Equip, pk=pk)
-    equip = Review(
-        rating=request.POST['rating'], comment=request.POST['comment'],
-        user=request.user,
-        equip=equip)
-    equip.save()
-    print jajaja
-    return render_to_response('detallequips.html')
+    review = EquipReview(rating=request.POST['rating'], 
+            comment=request.POST['comment'],
+            user=request.user,
+            equip=equip)
+    review.save()
+    return HttpResponseRedirect(urlresolvers.reverse('detail_equip', args=(equip.id,)))
 
 #Per borar entitats de les taules de la base de dades
 class EscolaDelete(ControlLogin, DeleteView):
