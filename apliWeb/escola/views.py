@@ -108,7 +108,9 @@ def detallequips(request,idEquip):
     try:
 
             equip = Equip.objects.get(pk=idEquip)
-            review = equip.equipreview_set.all()
+            #review = equip.equipreview_set.all()
+            review = EquipReview.objects.all().filter(pk=idEquip) 
+            RATING_CHOICES = EquipReview.RATING_CHOICES
             variables = {
             'titlehead': 'Detall equip ',
             'categoria': equip.categoria,
@@ -119,7 +121,7 @@ def detallequips(request,idEquip):
             'punts': equip.punts,
             'escola': equip.fkEscole,
             'detallequips': detallequips,
-            'RATING_CHOICES': Review.RATING_CHOICES,
+            'RATING_CHOICES': RATING_CHOICES,
             'review':review,
             'idEquip': idEquip,
             'equip': equip,
@@ -206,8 +208,9 @@ class InstalacioCreate(ControlLogin, CreateView):
 
 @login_required()
 def review(request, pk):
-    equip = get_object_or_404(Equip, pk=pk)
-    review = EquipReview(rating=request.POST['rating'], 
+    equip = get_object_or_404(Equip, idEquip=idEquip)
+    review = EquipReview(
+            rating=request.POST['rating'], 
             comment=request.POST['comment'],
             user=request.user,
             equip=equip)

@@ -3,60 +3,70 @@
 {% block contenido %}
 <button onclick="location.href='/equip'"> Tornar Enrere </button> 
 <br><button onclick="location.href='/'"> Inici </button> <br> 
-    
-    <center>
-<span vocab="http://schema.org/" typeof="Equip">
-<h3><span property="name">Detalls equip {{categoria}} </span></h3>
+	
+	<center>
+<h3>Detalls equip {{categoria}} </h3>
 {% if user.is_authenticated %}
 </br><button onclick="location.href='/equip/{{idEquip}}/edit/'" > Editar Equip </button>
-        <button onclick="location.href='/equip/{{idEquip}}/delete'">Esborrar</button>
+		<button onclick="location.href='/equip/{{idEquip}}/delete'">Esborrar</button>
+
+
 {% endif %}
-        
-        <table>
-        <tr><td><b>Nom Equip :<span property="name"></b></td><td>{{categoria}}</span></td></tr>
-        <tr><td><b>Nombre de Jugadors:<span property=""></b></td><td>{{numjug}}</span></td></tr>
-        <tr><td><b>Entrenador:<span property="coach"></b></td><td>{{entrenador}}</span></td></tr>
-        <tr><td><b>Posicio :<span property="classification"></b></td><td>{{possicio}}</span></td></td>
-        <tr><td><b>Punts :<span property="points"></b></td><td>{{punts}}<span></td></tr>
-        <tr><td><b>Imatge :<span property="imatge"></b></td><td><img src="{{imatge}}"/></span></td></tr>
-    
-        <tr><td><b>Escola :<span property="nameofschool"></b></td><td>{{escola.nom}}</span></td></tr>
+		
+		<table>
+		<tr><td><b>Nom Equip :</b></td><td>{{categoria}}</td></tr>
+		<tr><td><b>Nombre de Jugadors:</b></td><td>{{numjug}}</td></tr>
+		<tr><td><b>Entrenador:</b></td><td>{{entrenador}}</td></tr>
+		<tr><td><b>Posicio :</b></td><td>{{possicio}}</td></td>
+		<tr><td><b>Punts :</b></td><td>{{punts}}</td></tr>
+		<tr><td><b>Imatge :</b></td><td><img src="{{imatge}}"/></td></tr>
+	
+		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>
 
 
-        </table>
+		</table>
+
+</center>
+<center>
 <h2>Reviews</h2>
-{% if reviews %}
-<span rel="aggregateRating">
-   <p typeof="AggregateRating">
-   Puntuacio Mitja: 
-   <span property="ratingValue">{{gratacel.averageRating|stringformat:".1f"}}</span>
-   {% with reviews|length as reviewCount %}
-   (de <span property="reviewCount">{{reviewCount}}</span>
-   comentari{{reviewCount|pluralize}})  
-   {% endwith %}    
-   </p>   
-</span> 
-{% endif %}
-<ul rel="Review">
-    {% for review in equips %}
-        <li typeof="Review">
-            <p rel="reviewRating" typeof="Rating">
-                <span property="worstRating" content="{{RATING_CHOICES.0.0}}"></span>
-                <span property="ratingValue">{{ review.rating }}</span>
-                 star {{ review.rating|pluralize }}
-                {% with RATING_CHOICES|last as best %}
-                <span property="bestRating" content="{{ best.0 }}" ></span>
-                {% endwith %}
-            </p>
-            <p property="description">{{ review.comment }}</p>
-            <p>Created by <span property="author">{{ review.user }}</span></p>
-        </li>
-    {% endfor %}
+<ul>
+    
+	{% if equip.equipreview_set.all|length > 0 %}
+		<span rel="aggregateRating">
+			<p typeof="AggregateRating">
+				Average	rating	
+				<span	property="ratingValue">{{ equip.averageRating|stringformat:".1f" }}</span>
+				{%	with equip.equipreview_set.all|length as reviewCount %}
+					from <span property="reviewCount">{{ reviewCount }}</span>
+					review{{ reviewCount|pluralize }}
+				{%	endwith	%}
+			</p>
+		</span>
+		<ul rel="review">
+			{% for review in equip.equipreview_set.all %}
+			    <li typeof="Review">
+					<p rel="reviewRating" typeof="Rating">
+					<span property="worstRating" content="{{ RATING_CHOICES.0.0	}}"></span>
+					<span property="ratingValue">{{ review.rating }}</span>
+					star{{ review.rating|pluralize }}
+					{% with RATING_CHOICES|last	as best %}
+						<span property="bestRating"	content="{{ best.0 }}"></span>
+					{% endwith %}
+			        <p property="description">{{ review.comment }}</p>
+			        <p>Created by <span property="author">{{ review.user }}</span> 
+						on <span property="publishDate">{{ review.date }}</span>
+					</p>
+			    </li>
+			{% endfor %}
+		</ul>
+
+	</span>
+		{% endif %}
 </ul>
-</span>
+
 
 <h3>Afegir Review</h3>
-<form action="{% url 'review_create' equip.idEquip %}" method="post">
+<form action="{% url 'review_create' equip.id %}" method="post">
     {% csrf_token %}
     Message: <textarea name="comment" id="comment" rows="4"></textarea>
     <p>Rating:</p>

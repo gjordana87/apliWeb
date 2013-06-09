@@ -81,6 +81,7 @@ class Review(models.Model):
     date = models.DateField(default=date.today)
     
     
+    
 class EquipReview(Review):
     equip = models.ForeignKey(Equip)
     
