@@ -108,7 +108,6 @@ def detallequips(request,idEquip):
     try:
 
             equip = Equip.objects.get(pk=idEquip)
-            review = equip.equipreview_set.all()
             review = EquipReview.objects.all().filter(pk=idEquip) 
             RATING_CHOICES = EquipReview.RATING_CHOICES
             if request.method == 'POST':
@@ -213,17 +212,6 @@ class InstalacioCreate(ControlLogin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(InstalacioCreate, self).form_valid(form)
-
-
-#def review(request, pk):
-#    equip = get_object_or_404(Equip, idEquip=pk)
-#    review = EquipReview(
-#            rating=request.POST['rating'], 
-#            comment=request.POST['comment'],
-#            user=request.user,
-#            equip=equip)
-#    review.save()
-#    return HttpResponseRedirect(urlresolvers.reverse('detail_equip', args=(equip.id,)))
 
 #Per borar entitats de les taules de la base de dades
 class EscolaDelete(ControlLogin, DeleteView):

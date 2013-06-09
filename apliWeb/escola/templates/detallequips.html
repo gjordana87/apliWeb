@@ -38,12 +38,14 @@
 					<br>Escala reviews : (<span property="worstRating">{{ RATING_CHOICES.0.0 }}</span>-
 				<span property="bestRating">{{ RATING_CHOICES.4.0 }}</span>)
 				{%	endwith	%}
+				
 			</p>
 		</span>
 		{% endif %}
 
 		<span rel="review">
 				<center>
+
 				<b><u>Reviews realitzades:</u></b>
 				<table >	
 					<tr><td><b>Puntuació | Opinio | Creador | Data</b></td></tr>
@@ -56,9 +58,11 @@
 								<span property="description">{{ review.comment }}</span> |
 								<span property="author">{{ review.user }}</span> |
 								<span property="publishDate">{{ review.date }}</span>
+
 						   </span>
 						</td>
 					</tr>
+
 					{% endfor %}
 				</table>
 				</center>
