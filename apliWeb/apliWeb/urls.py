@@ -63,7 +63,7 @@ urlpatterns = patterns('',
     url(r'^reglament/(?P<pk>\d+)/delete/$',DeleteView.as_view(model= Reglament, template_name='delete.html',success_url = '/reglament'),name='reglament_delete'),
 
     #review
-    url(r'^equip/(?P<pk>\d+)/reviews/create/$', review, name='review_create'), 
+    #url(r'^equip/(?P<idEquip>\d+)/reviews/create/$', review, name='review_create'), 
     
 
 

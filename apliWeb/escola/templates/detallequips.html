@@ -3,80 +3,81 @@
 {% block contenido %}
 <button onclick="location.href='/equip'"> Tornar Enrere </button> 
 <br><button onclick="location.href='/'"> Inici </button> <br> 
+
+<span vocab="http://schema.org/" typeof="SportsTeam">
 	
 	<center>
-<h3>Detalls equip {{categoria}} </h3>
+<h3 property="name">Detalls equip {{categoria}} </h3>
 {% if user.is_authenticated %}
 </br><button onclick="location.href='/equip/{{idEquip}}/edit/'" > Editar Equip </button>
 		<button onclick="location.href='/equip/{{idEquip}}/delete'">Esborrar</button>
-
-
 {% endif %}
 		
 		<table>
-		<tr><td><b>Nom Equip :</b></td><td>{{categoria}}</td></tr>
-		<tr><td><b>Nombre de Jugadors:</b></td><td>{{numjug}}</td></tr>
-		<tr><td><b>Entrenador:</b></td><td>{{entrenador}}</td></tr>
-		<tr><td><b>Posicio :</b></td><td>{{possicio}}</td></td>
-		<tr><td><b>Punts :</b></td><td>{{punts}}</td></tr>
-		<tr><td><b>Imatge :</b></td><td><img src="{{imatge}}"/></td></tr>
+		<tr><td><b>Nom Equip :</b><span property="Name"></td><td>{{categoria}}</span></td></tr>
+		<tr><td><b>Nombre de Jugadors:</b><span property="Number"></td><td>{{numjug}}</span></td></tr>
+		<tr><td><b>Entrenador:</b><span property="ContactPoint"></td><td>{{entrenador}}</span></td></tr>
+		<tr><td><b>Posicio :</b><span property="position"></td><td>{{possicio}}</span></td></td>
+		<tr><td><b>Punts :</b><span property="Points"></td><td>{{punts}}</span></td></tr>
+		<tr><td><b>Imatge :</b><span property="Imatge"></td><td><img src="{{imatge}}"/></span></td></tr>
 	
 		<tr><td><b>Escola :</b></td><td>{{escola.nom}}</td></tr>
 
 
 		</table>
 
-</center>
-<center>
 <h2>Reviews</h2>
-<ul>
-    
-	{% if equip.equipreview_set.all|length > 0 %}
+{% if equip.equipreview_set.all|length > 0 %}
 		<span rel="aggregateRating">
 			<p typeof="AggregateRating">
-				Average	rating	
+				Promitj de valoracions:
 				<span	property="ratingValue">{{ equip.averageRating|stringformat:".1f" }}</span>
 				{%	with equip.equipreview_set.all|length as reviewCount %}
-					from <span property="reviewCount">{{ reviewCount }}</span>
-					review{{ reviewCount|pluralize }}
+					de  <span property="reviewCount">{{ reviewCount }}</span>
+					valoracion{{ reviewCount|pluralize }}
+					<br>Escala reviews : (<span property="worstRating">{{ RATING_CHOICES.0.0 }}</span>-
+				<span property="bestRating">{{ RATING_CHOICES.4.0 }}</span>)
 				{%	endwith	%}
 			</p>
 		</span>
-		<ul rel="review">
-			{% for review in equip.equipreview_set.all %}
-			    <li typeof="Review">
-					<p rel="reviewRating" typeof="Rating">
-					<span property="worstRating" content="{{ RATING_CHOICES.0.0	}}"></span>
-					<span property="ratingValue">{{ review.rating }}</span>
-					star{{ review.rating|pluralize }}
-					{% with RATING_CHOICES|last	as best %}
-						<span property="bestRating"	content="{{ best.0 }}"></span>
-					{% endwith %}
-			        <p property="description">{{ review.comment }}</p>
-			        <p>Created by <span property="author">{{ review.user }}</span> 
-						on <span property="publishDate">{{ review.date }}</span>
-					</p>
-			    </li>
-			{% endfor %}
-		</ul>
-
-	</span>
 		{% endif %}
-</ul>
 
+		<span rel="review">
+				<center>
+				<b><u>Reviews realitzades:</u></b>
+				<table >	
+					<tr><td><b>Puntuació | Opinio | Creador | Data</b></td></tr>
+					{% for review in equip.equipreview_set.all %}
+					<tr>
+						<td>
+						   <span typeof="Review">
+								<span rel="reviewRating" typeof="Rating">
+								<span property="ratingValue">{{ review.rating }}</span> |
+								<span property="description">{{ review.comment }}</span> |
+								<span property="author">{{ review.user }}</span> |
+								<span property="publishDate">{{ review.date }}</span>
+						   </span>
+						</td>
+					</tr>
+					{% endfor %}
+				</table>
+				</center>
+				<br>
+		</span>
+	</span>
 
 <h3>Afegir Review</h3>
-<form action="{% url 'review_create' equip.id %}" method="post">
+<form action="." method="post">
     {% csrf_token %}
-    Message: <textarea name="comment" id="comment" rows="4"></textarea>
-    <p>Rating:</p>
+    Missatge: <textarea name="comment" id="comment" rows="4"></textarea>
+    <p>Valoracio:</p>
     <p>
     {% for rate in RATING_CHOICES %}
         <input type="radio" name="rating" id="rating{{ forloop.counter }}" value="{{ rate.1 }}" />
         <label for="choice{{ forloop.counter }}">{{ rate.1 }} star{{ rate.0|pluralize }}</label><br />
     {% endfor %}
     </p>
-    <input type="submit" value="Review" />
+    <input type="submit" value="Valorar" onclick="alert('Valoracio enviada!!')"/>
 </form>
 
 </center>

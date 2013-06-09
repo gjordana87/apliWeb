@@ -108,9 +108,17 @@ def detallequips(request,idEquip):
     try:
 
             equip = Equip.objects.get(pk=idEquip)
-            #review = equip.equipreview_set.all()
+            review = equip.equipreview_set.all()
             review = EquipReview.objects.all().filter(pk=idEquip) 
             RATING_CHOICES = EquipReview.RATING_CHOICES
+            if request.method == 'POST':
+                    review = EquipReview(
+                        rating=request.POST['rating'], 
+                        comment=request.POST['comment'],
+                        user=request.user,
+                        equip=equip)
+                    review.save()
+    
             variables = {
             'titlehead': 'Detall equip ',
             'categoria': equip.categoria,
@@ -121,7 +129,7 @@ def detallequips(request,idEquip):
             'punts': equip.punts,
             'escola': equip.fkEscole,
             'detallequips': detallequips,
-            'RATING_CHOICES': RATING_CHOICES,
+            'RATING_CHOICES': EquipReview.RATING_CHOICES,
             'review':review,
             'idEquip': idEquip,
             'equip': equip,
@@ -206,16 +214,16 @@ class InstalacioCreate(ControlLogin, CreateView):
         form.instance.user = self.request.user
         return super(InstalacioCreate, self).form_valid(form)
 
-@login_required()
-def review(request, pk):
-    equip = get_object_or_404(Equip, idEquip=idEquip)
-    review = EquipReview(
-            rating=request.POST['rating'], 
-            comment=request.POST['comment'],
-            user=request.user,
-            equip=equip)
-    review.save()
-    return HttpResponseRedirect(urlresolvers.reverse('detail_equip', args=(equip.id,)))
+
+#def review(request, pk):
+#    equip = get_object_or_404(Equip, idEquip=pk)
+#    review = EquipReview(
+#            rating=request.POST['rating'], 
+#            comment=request.POST['comment'],
+#            user=request.user,
+#            equip=equip)
+#    review.save()
+#    return HttpResponseRedirect(urlresolvers.reverse('detail_equip', args=(equip.id,)))
 
 #Per borar entitats de les taules de la base de dades
 class EscolaDelete(ControlLogin, DeleteView):
